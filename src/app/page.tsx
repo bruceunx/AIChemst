@@ -1,5 +1,6 @@
 import { Flex, Separator } from '@radix-ui/themes'
 import Search from './components/Search'
+import Chart from './components/Chart'
 
 export default function Home() {
 	return (
@@ -7,7 +8,7 @@ export default function Home() {
 			<Search />
 			<Separator orientation='horizontal' size='4' />
 			<Flex width='100%' className='h-80'>
-				<p>reaction path</p>
+				<Chart />
 			</Flex>
 			<Separator orientation='horizontal' size='4' />
 			<Flex className='min-h-[300px]' width='100%' direction='row'>

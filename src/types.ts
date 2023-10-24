@@ -4,12 +4,16 @@ export type ChemNodeData = {
   imgUrl: string
 }
 
-export type ChemData = {
-  id: string
-  type: string
-  position: {
-    x: number
-    y: number
-  }
-  data: ChemData
+export type ReactNodeData = {
+  condition: string
 }
+
+// export type ChemData = {
+//   id: string
+//   type: string
+//   position: {
+//     x: number
+//     y: number
+//   }
+//   data: ChemData
+// }

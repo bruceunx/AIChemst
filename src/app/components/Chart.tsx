@@ -1,5 +1,3 @@
-'use client'
-
 import { Flex } from '@radix-ui/themes'
 import ReactFlow, {
   Background,
@@ -10,9 +8,11 @@ import ReactFlow, {
 } from 'reactflow'
 import 'reactflow/dist/style.css'
 
-import { ChemNodeData, ReactNodeData } from '../../types'
 import ReactionNode from './ReactionNode'
 import ChemNode from './ChemNode'
+import { useCallback, MouseEvent } from 'react'
+
+import { initialNodes, initialEdges } from '../data'
 
 const nodeTypes = {
   chemNode: ChemNode,
@@ -28,46 +28,32 @@ const defaultEdgeOptions = {
   },
 }
 
-const initialNodes: Node<ChemNodeData | ReactNodeData>[] = [
-  {
-    id: '1',
-    type: 'chemNode',
-    data: { imgUrl: '/assets/sample1.svg', isLeaf: true },
-    position: { x: 100, y: 100 },
-  },
-  {
-    id: '2',
-    type: 'reactionNode',
-    data: { condition: '#1' },
-    position: { x: 300, y: 100 },
-  },
-  {
-    id: '3',
-    type: 'chemNode',
-    data: { imgUrl: '/assets/sample.svg', isTarget: true },
-    position: { x: 500, y: 100 },
-  },
-]
-
-const initialEdges = [
-  { id: 'e1-2', source: '1', target: '2', type: 'smoothstep' },
-  { id: 'e2-3', source: '2', target: '3', type: 'smoothstep' },
-]
-
-export default function Chart() {
+export default function Chart({
+  handleSelect,
+}: {
+  handleSelect: (node: Node) => void
+}) {
   const [nodes, ___, onNodesChange] = useNodesState(initialNodes)
   const [edges, _, __] = useEdgesState(initialEdges)
+
+  const onNodeClick = useCallback(
+    (_: MouseEvent, node: Node) => {
+      handleSelect(node)
+    },
+    [handleSelect],
+  )
 
   return (
     <Flex className='w-full h-full'>
       <ReactFlow
         nodes={nodes}
         edges={edges}
+        onNodeClick={onNodeClick}
         defaultEdgeOptions={defaultEdgeOptions}
         nodeTypes={nodeTypes}
         onNodesChange={onNodesChange}
         proOptions={{ hideAttribution: true }}
-				fitView
+        fitView
       >
         <Background />
       </ReactFlow>

@@ -67,6 +67,7 @@ export default function Chart() {
         nodeTypes={nodeTypes}
         onNodesChange={onNodesChange}
         proOptions={{ hideAttribution: true }}
+				fitView
       >
         <Background />
       </ReactFlow>

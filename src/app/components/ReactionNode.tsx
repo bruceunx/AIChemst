@@ -7,16 +7,14 @@ function ReactionNode({ data }: NodeProps<ReactNodeData>) {
   const handleStyle = {
     width: '2px',
     height: '2px',
-    borderRadius: '0px',
-    marginRight: '1px',
-    transform: 'rotate(45deg) translate(1px, 1px)',
-    backgroundColor: '#2c344c',
+    borderRadius: '2px',
+    backgroundColor: '#778899',
   }
 
   return (
     <Flex
       direction='column'
-      className='relative bg-red-400 w-8 h-8 p-1 rounded-full'
+      className='relative bg-red-400 w-8 h-8 p-1 rounded-full hover:bg-red-600'
     >
       <Handle style={handleStyle} type='target' position={Position.Left} />
       <Text className='text-center'>{data.condition}</Text>

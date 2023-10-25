@@ -3,12 +3,13 @@ import { Flex, Separator } from '@radix-ui/themes'
 import Image from 'next/image'
 import Search from './Search'
 import Chart from './Chart'
-import { Node, useReactFlow } from 'reactflow'
+import {  Node, useReactFlow} from 'reactflow'
 
 export default function Dashboard() {
   const [currentNode, setCurrentNode] = useState<Node>()
 
-  const { setNodes } = useReactFlow()
+
+  const { addEdges, addNodes } = useReactFlow()
 
   const handleSelect = (node: Node) => {
     setCurrentNode(node)
@@ -30,7 +31,12 @@ export default function Dashboard() {
       },
     ]
 
-    setNodes((nodes) => nodes.concat(newNodes))
+    let newEdges = [
+      { id: 'e6-8', source: '6', target: '8', type: 'smoothstep' },
+      { id: 'e8-1', source: '8', target: '1', type: 'smoothstep' },
+    ]
+    addNodes(newNodes)
+    addEdges(newEdges)
   }
 
   return (

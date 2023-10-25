@@ -33,8 +33,8 @@ export default function Chart({
 }: {
   handleSelect: (node: Node) => void
 }) {
-  const [nodes, ___, onNodesChange] = useNodesState(initialNodes)
-  const [edges, _, __] = useEdgesState(initialEdges)
+  const [nodes, _, onNodesChange] = useNodesState(initialNodes)
+  const [edges, __, onEdgesChange] = useEdgesState(initialEdges)
 
   const onNodeClick = useCallback(
     (_: MouseEvent, node: Node) => {
@@ -52,6 +52,7 @@ export default function Chart({
         defaultEdgeOptions={defaultEdgeOptions}
         nodeTypes={nodeTypes}
         onNodesChange={onNodesChange}
+        onEdgesChange={onEdgesChange}
         proOptions={{ hideAttribution: true }}
         fitView
       >

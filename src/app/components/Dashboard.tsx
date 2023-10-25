@@ -58,7 +58,7 @@ export default function Dashboard() {
 					gap='4'
           style={{ backgroundColor: 'var(--gray-a6)' }}
         >
-          <Text align='center'>当前目标</Text>
+          <Text align='center'>{currentNode? "当前目标" : "未选中目标"} </Text>
           <Flex align='center' justify='center' className='w-64 h-64 p-2'>
             {currentNode && currentNode.data.imgUrl && (
               <Image

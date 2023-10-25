@@ -15,19 +15,20 @@ export default function Dashboard() {
   }
 
   const onImageClick = () => {
-    let newNodes = [{
-      id: '6',
-      type: 'chemNode',
-      data: { imgUrl: '/assets/sample1.svg', isLeaf: true },
-      position: { x: 50, y: 100 },
-    },
-    {
-      id: '8',
-      type: 'reactionNode',
-      data: { condition: '#2' },
-      position: { x: 550, y: 100 },
-    }
-		]
+    let newNodes = [
+      {
+        id: '6',
+        type: 'chemNode',
+        data: { imgUrl: '/assets/sample1.svg', isLeaf: true },
+        position: { x: 50, y: 100 },
+      },
+      {
+        id: '8',
+        type: 'reactionNode',
+        data: { condition: '#2' },
+        position: { x: 550, y: 100 },
+      },
+    ]
 
     setNodes((nodes) => nodes.concat(newNodes))
   }

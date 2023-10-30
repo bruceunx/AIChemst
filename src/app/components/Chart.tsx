@@ -1,10 +1,11 @@
-import { Flex } from '@radix-ui/themes'
+import { Button, Flex } from '@radix-ui/themes'
 import ReactFlow, {
   Background,
   useEdgesState,
   useNodesState,
   MarkerType,
   Node,
+  Panel,
 } from 'reactflow'
 import 'reactflow/dist/style.css'
 
@@ -57,6 +58,10 @@ export default function Chart({
         fitView
       >
         <Background />
+        <Panel position='top-right'>
+          <Button variant='outline'>保存</Button>
+          <Button variant='outline' color='indigo'>导出</Button>
+        </Panel>
       </ReactFlow>
     </Flex>
   )

@@ -8,6 +8,19 @@ export type ReactNodeData = {
   condition: string
 }
 
+
+export type NodeProps = {
+	imgUrl : string
+	isExpand: boolean
+}
+
+export type RouteProps = {
+	serial : string
+	isExpand: boolean
+}
+
+
+
 // export type ChemData = {
 //   id: string
 //   type: string

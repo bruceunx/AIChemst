@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import { Flex, Separator, Text } from '@radix-ui/themes'
-import Image from 'next/image'
 import Search from './Search'
 import Chart from './Chart'
 import { Node, useReactFlow } from 'reactflow'
 import Reactions from './Reactions'
+import NodeDetail from './NodeDetail'
+import RouteDetail from './RouteDetail'
 
 export default function Dashboard() {
   const [currentNode, setCurrentNode] = useState<Node>()
@@ -55,19 +56,24 @@ export default function Dashboard() {
           className='w-1/4 ml-2'
           align='center'
           direction='column'
-					gap='4'
+          gap='4'
           style={{ backgroundColor: 'var(--gray-a6)' }}
         >
-          <Text align='center'>{currentNode? "当前目标" : "未选中目标"} </Text>
-          <Flex align='center' justify='center' className='w-64 h-64 p-2'>
-            {currentNode && currentNode.data.imgUrl && (
-              <Image
-                src={currentNode.data.imgUrl}
-                alt='sample'
-                width={270}
-                height={270}
-                className='bg-green-50 rounded-xl hover:cursor-pointer'
-                onClick={onImageClick}
+          <Text align='center'>{currentNode ? '当前目标' : '未选中目标'} </Text>
+          <Flex
+            align='center'
+            justify='center'
+            className='w-64 h-64 p-2 mt-4'
+            direction='column'
+            gap='4'
+          >
+            {currentNode && currentNode.type === 'chemNode' && (
+              <NodeDetail imgUrl={currentNode.data.imgUrl} isExpand={true} />
+            )}
+            {currentNode && currentNode.type === 'reactionNode' && (
+              <RouteDetail
+                serial={currentNode.data.condition}
+                isExpand={true}
               />
             )}
           </Flex>

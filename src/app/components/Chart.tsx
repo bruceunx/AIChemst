@@ -57,7 +57,7 @@ export default function Chart({
         proOptions={{ hideAttribution: true }}
         fitView
       >
-        <Background />
+        <Background gap={20} />
         <Panel position='top-right'>
           <Button variant='outline'>保存</Button>
           <Button variant='outline' color='indigo'>导出</Button>

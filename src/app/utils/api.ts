@@ -30,3 +30,7 @@ export const findRoutes = async (smiles: string) => {
     return null
   }
 }
+
+export const getReactionSVG = async (reactants:string, product:string) => {
+
+}

@@ -5,8 +5,10 @@ import { findRoutes, findSmiles } from '../utils/api'
 
 export default function Search({
   setRoutes,
+  setCurrentTarget,
 }: {
   setRoutes: Dispatch<SetStateAction<never[]>>
+  setCurrentTarget: Dispatch<SetStateAction<string>>
 }) {
   const [input, setInput] = useState<string>('')
   const [text, setText] = useState<string>('开始查询')
@@ -21,6 +23,7 @@ export default function Search({
       if (routes === null) {
         setError(true)
       } else {
+        setCurrentTarget(smiles)
         setRoutes(routes)
       }
     }

@@ -11,6 +11,7 @@ export default function Dashboard() {
   const [currentNode, setCurrentNode] = useState<Node>()
 
   const [routes, setRoutes] = useState([])
+  const [currentTarget, setCurrentTarget] = useState<string>('')
 
   const { addEdges, addNodes } = useReactFlow()
 
@@ -44,7 +45,7 @@ export default function Dashboard() {
 
   return (
     <Flex direction='column' width='100%'>
-      <Search setRoutes={setRoutes} />
+      <Search setRoutes={setRoutes} setCurrentTarget={setCurrentTarget} />
       <Separator orientation='horizontal' size='4' />
       <Flex width='100%' className='h-80'>
         <Chart handleSelect={handleSelect} />
@@ -52,7 +53,7 @@ export default function Dashboard() {
       <Separator orientation='horizontal' size='4' />
       <Flex className='min-h-[300px]' width='100%' direction='row'>
         <Flex className='w-3/4' direction='column'>
-          <Reactions routes={routes} />
+          <Reactions routes={routes} target={currentTarget} />
         </Flex>
         <Flex
           className='w-1/4 ml-2'

@@ -10,6 +10,8 @@ import RouteDetail from './RouteDetail'
 export default function Dashboard() {
   const [currentNode, setCurrentNode] = useState<Node>()
 
+  const [routes, setRoutes] = useState([])
+
   const { addEdges, addNodes } = useReactFlow()
 
   const handleSelect = (node: Node) => {
@@ -42,7 +44,7 @@ export default function Dashboard() {
 
   return (
     <Flex direction='column' width='100%'>
-      <Search />
+      <Search setRoutes={setRoutes} />
       <Separator orientation='horizontal' size='4' />
       <Flex width='100%' className='h-80'>
         <Chart handleSelect={handleSelect} />
@@ -50,7 +52,7 @@ export default function Dashboard() {
       <Separator orientation='horizontal' size='4' />
       <Flex className='min-h-[300px]' width='100%' direction='row'>
         <Flex className='w-3/4' direction='column'>
-          <Reactions />
+          <Reactions routes={routes} />
         </Flex>
         <Flex
           className='w-1/4 ml-2'

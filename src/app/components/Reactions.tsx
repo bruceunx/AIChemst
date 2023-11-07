@@ -2,7 +2,8 @@ import React from 'react'
 import Image from 'next/image'
 import { Flex, Heading, RadioGroup, Text } from '@radix-ui/themes'
 
-const Reactions: React.FC = () => {
+const Reactions: React.FC<any> = ({ routes }) => {
+  console.log(routes)
   const onChange = (value: string) => {
     console.log(value)
   }

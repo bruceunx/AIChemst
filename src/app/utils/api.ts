@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API = "http://127.0.0.1:8000/v1"
+const API = 'http://127.0.0.1:8000/v1'
 
 export const findSmiles = async (input: string) => {
   try {
@@ -22,7 +22,7 @@ export const findRoutes = async (smiles: string) => {
   try {
     const res = await axios.post(url, data)
     if (res.status === 200) {
-      return res.data
+      return res.data.routes
     } else {
       return null
     }
@@ -31,6 +31,32 @@ export const findRoutes = async (smiles: string) => {
   }
 }
 
-export const getReactionSVG = async (reactants:string, product:string) => {
+export const getReactionSVG = async (reactants: string, product: string) => {
+  const url = `${API}/product/getreactionsvg`
+  const data = { reactants: reactants, product: product }
+  try {
+    const res = await axios.post(url, data)
+    if (res.status === 200) {
+      return res.data.svg
+    } else {
+      return null
+    }
+  } catch (err) {
+    return null
+  }
+}
 
+export const getChemicalSVG = async (smiles: string) => {
+  const url = `${API}/product/getchemicalsvg`
+  const data = { smiles: smiles }
+  try {
+    const res = await axios.post(url, data)
+    if (res.status === 200) {
+      return res.data.svg
+    } else {
+      return null
+    }
+  } catch (err) {
+    return null
+  }
 }

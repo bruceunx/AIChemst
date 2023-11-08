@@ -2,50 +2,24 @@ import { useState } from 'react'
 import { Flex, Separator, Text } from '@radix-ui/themes'
 import Search from './Search'
 import Chart from './Chart'
-import { Node, useReactFlow } from 'reactflow'
+import { Node } from 'reactflow'
 import Reactions from './Reactions'
 import NodeDetail from './NodeDetail'
 import RouteDetail from './RouteDetail'
 
 export default function Dashboard() {
-  const [currentNode, setCurrentNode] = useState<Node>()
+  const [currentNode, setCurrentNode] = useState<Node | null>(null)
 
   const [routes, setRoutes] = useState([])
-  const [currentTarget, setCurrentTarget] = useState<string>('')
-
-  const { addEdges, addNodes } = useReactFlow()
 
   const handleSelect = (node: Node) => {
     setCurrentNode(node)
-  }
-
-  const onImageClick = () => {
-    let newNodes = [
-      {
-        id: '6',
-        type: 'chemNode',
-        data: { imgUrl: '/assets/sample1.svg', isLeaf: true },
-        position: { x: 50, y: 100 },
-      },
-      {
-        id: '8',
-        type: 'reactionNode',
-        data: { condition: '#2' },
-        position: { x: 550, y: 100 },
-      },
-    ]
-
-    let newEdges = [
-      { id: 'e6-8', source: '6', target: '8', type: 'smoothstep' },
-      { id: 'e8-1', source: '8', target: '1', type: 'smoothstep' },
-    ]
-    addNodes(newNodes)
-    addEdges(newEdges)
+    setRoutes([])
   }
 
   return (
     <Flex direction='column' width='100%'>
-      <Search setRoutes={setRoutes} setCurrentTarget={setCurrentTarget} />
+      <Search setRoutes={setRoutes} setCurrentNode={setCurrentNode} />
       <Separator orientation='horizontal' size='4' />
       <Flex width='100%' className='h-80'>
         <Chart handleSelect={handleSelect} />
@@ -53,10 +27,10 @@ export default function Dashboard() {
       <Separator orientation='horizontal' size='4' />
       <Flex className='min-h-[300px]' width='100%' direction='row'>
         <Flex className='w-3/4' direction='column'>
-          <Reactions routes={routes} target={currentTarget} />
+          <Reactions routes={routes} currentNode={currentNode} />
         </Flex>
         <Flex
-          className='w-1/4 ml-2'
+          className='w-1/4 ml-2 h-fit'
           align='center'
           direction='column'
           gap='4'
@@ -66,12 +40,15 @@ export default function Dashboard() {
           <Flex
             align='center'
             justify='center'
-            className='w-64 h-64 p-2 mt-4'
+            className='w-64 p-2 mt-4 h-fit'
             direction='column'
             gap='4'
           >
             {currentNode && currentNode.type === 'chemNode' && (
-              <NodeDetail imgUrl={currentNode.data.imgUrl} isExpand={true} />
+              <NodeDetail
+                imgUrl={currentNode.data.imgUrl}
+                isExpand={currentNode.data.isLeaf}
+              />
             )}
             {currentNode && currentNode.type === 'reactionNode' && (
               <RouteDetail

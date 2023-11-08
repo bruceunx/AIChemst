@@ -34,8 +34,8 @@ export default function Chart({
 }: {
   handleSelect: (node: Node) => void
 }) {
-  const [nodes, _, onNodesChange] = useNodesState(initialNodes)
-  const [edges, __, onEdgesChange] = useEdgesState(initialEdges)
+  const [nodes, _, onNodesChange] = useNodesState([])
+  const [edges, __, onEdgesChange] = useEdgesState([])
 
   const onNodeClick = useCallback(
     (_: MouseEvent, node: Node) => {
@@ -60,7 +60,9 @@ export default function Chart({
         <Background gap={20} />
         <Panel position='top-right'>
           <Button variant='outline'>保存</Button>
-          <Button variant='outline' color='indigo'>导出</Button>
+          <Button variant='outline' color='indigo'>
+            导出
+          </Button>
         </Panel>
       </ReactFlow>
     </Flex>

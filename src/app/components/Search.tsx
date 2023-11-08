@@ -1,15 +1,18 @@
 import { Button, Flex, Link, Text, TextField } from '@radix-ui/themes'
 import { MagnifyingGlassIcon } from '@radix-ui/react-icons'
 import { Dispatch, SetStateAction, useState } from 'react'
-import { findRoutes, findSmiles } from '../utils/api'
+import { findRoutes, findSmiles, getChemicalSVG } from '../utils/api'
+import { Node, useReactFlow } from 'reactflow'
 
 export default function Search({
   setRoutes,
-  setCurrentTarget,
+  setCurrentNode,
 }: {
   setRoutes: Dispatch<SetStateAction<never[]>>
-  setCurrentTarget: Dispatch<SetStateAction<string>>
+  setCurrentNode: Dispatch<SetStateAction<Node | null>>
 }) {
+  const { setEdges, setNodes } = useReactFlow()
+
   const [input, setInput] = useState<string>('')
   const [text, setText] = useState<string>('开始查询')
   const [error, setError] = useState<boolean>(false)
@@ -23,8 +26,21 @@ export default function Search({
       if (routes === null) {
         setError(true)
       } else {
-        setCurrentTarget(smiles)
-        setRoutes(routes)
+
+        const svg = await getChemicalSVG(smiles)
+        if (svg !== null) {
+          const svgUrl = `data:image/svg+xml,${encodeURIComponent(svg)}`
+          let node = {
+            id: 'target_0',
+            type: 'chemNode',
+            data: { imgUrl: svgUrl, isLeaf: false, smiles: smiles },
+            position: { x: 300, y: 70 },
+          }
+          setCurrentNode(node)
+          setNodes([node])
+          setEdges([])
+					setRoutes(routes)
+        }
       }
     }
     setText('开始查询')

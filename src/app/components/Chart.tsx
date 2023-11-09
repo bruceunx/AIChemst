@@ -13,7 +13,6 @@ import ReactionNode from './ReactionNode'
 import ChemNode from './ChemNode'
 import { useCallback, MouseEvent } from 'react'
 
-import { initialNodes, initialEdges } from '../data'
 
 const nodeTypes = {
   chemNode: ChemNode,

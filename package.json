@@ -1,7 +1,7 @@
 {
   "name": "retrosynthesis",
   "version": "0.1.0",
-	"license": "gpl-3",
+  "license": "gpl-3",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -13,6 +13,9 @@
     "@radix-ui/react-icons": "^1.3.0",
     "@radix-ui/themes": "^2.0.0",
     "axios": "^1.6.0",
+    "ketcher-core": "^2.15.0",
+    "ketcher-react": "^2.15.0",
+    "ketcher-standalone": "^2.15.0",
     "next": "13.5.4",
     "react": "^18",
     "react-dom": "^18",

@@ -3,6 +3,9 @@ import { MagnifyingGlassIcon } from '@radix-ui/react-icons'
 import { Dispatch, SetStateAction, useState } from 'react'
 import { findRoutes, findSmiles, getChemicalSVG } from '../utils/api'
 import { Node, useReactFlow } from 'reactflow'
+import dynamic from 'next/dynamic';
+
+const ChemEditor = dynamic(() => import('./ChemEditor'), {ssr: false})
 
 export default function Search({
   setRoutes,
@@ -18,6 +21,13 @@ export default function Search({
   const [error, setError] = useState<boolean>(false)
   const handleClick = async () => {
     setText('查询中...')
+		setError(false)
+
+		setRoutes([])
+		setNodes([])
+		setEdges([])
+		setCurrentNode(null)
+
     const smiles = await findSmiles(input)
     if (smiles === null) {
       setError(true)
@@ -63,17 +73,11 @@ export default function Search({
       </TextField.Root>
       {error && (
         <Text size='2' color='red'>
-          无法获取路线!
+          无法获取路线:( 可以再次尝试
         </Text>
       )}
       <Button onClick={handleClick}>{text}</Button>
-      <Link
-        size='2'
-        href='https://www.rcsb.org/chemical-sketch'
-        target='_blank'
-      >
-        👉按结构图查询SMILES
-      </Link>
+			<ChemEditor setInput={setInput} />
     </Flex>
   )
 }

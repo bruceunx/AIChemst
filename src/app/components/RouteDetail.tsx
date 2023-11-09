@@ -57,7 +57,7 @@ const RouteDetail: React.FC<RouteProps> = ({
       )}
       {error && (
         <Text size='1' color='red'>
-          无法设计:(
+          无法获取条件:( 可以再次尝试获取
         </Text>
       )}
     </>

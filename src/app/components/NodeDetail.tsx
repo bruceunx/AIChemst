@@ -56,7 +56,7 @@ const NodeDetail: React.FC<NodeProps> = ({ currentNode, setRoutes }) => {
       )}
       {error && (
         <Text size='1' color='red'>
-          无法设计:(
+          无法设计:( 可以再次尝试
         </Text>
       )}
     </>

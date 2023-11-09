@@ -45,16 +45,10 @@ export default function Dashboard() {
             gap='4'
           >
             {currentNode && currentNode.type === 'chemNode' && (
-              <NodeDetail
-                imgUrl={currentNode.data.imgUrl}
-                isExpand={currentNode.data.isLeaf}
-              />
+              <NodeDetail setRoutes={setRoutes} currentNode={currentNode} />
             )}
             {currentNode && currentNode.type === 'reactionNode' && (
-              <RouteDetail
-                serial={currentNode.data.condition}
-                isExpand={true}
-              />
+              <RouteDetail currentNode={currentNode} />
             )}
           </Flex>
         </Flex>

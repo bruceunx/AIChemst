@@ -33,7 +33,7 @@ export default function Search({
           let node = {
             id: 'target_0',
             type: 'chemNode',
-            data: { imgUrl: svgUrl, isLeaf: false, smiles: smiles },
+            data: { imgUrl: svgUrl, isLeaf: false, isTarget:true, smiles: smiles },
             position: { x: 300, y: 70 },
           }
           setCurrentNode(node)

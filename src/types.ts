@@ -1,3 +1,6 @@
+import { Dispatch, SetStateAction } from 'react'
+import { Node } from 'reactflow'
+
 export type ChemNodeData = {
   isTarget?: boolean | undefined
   isLeaf?: boolean | undefined
@@ -6,20 +9,19 @@ export type ChemNodeData = {
 
 export type ReactNodeData = {
   condition: string
+	reactants: string
+	product: string
+	detail?: string
 }
 
-
 export type NodeProps = {
-	imgUrl : string
-	isExpand: boolean
+  currentNode: Node
+  setRoutes: Dispatch<SetStateAction<never[]>>
 }
 
 export type RouteProps = {
-	serial : string
-	isExpand: boolean
+  currentNode: Node
 }
-
-
 
 // export type ChemData = {
 //   id: string

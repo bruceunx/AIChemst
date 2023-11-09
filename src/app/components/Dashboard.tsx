@@ -6,15 +6,20 @@ import { Node } from 'reactflow'
 import Reactions from './Reactions'
 import NodeDetail from './NodeDetail'
 import RouteDetail from './RouteDetail'
+import Conditions from './Conditions'
 
 export default function Dashboard() {
   const [currentNode, setCurrentNode] = useState<Node | null>(null)
 
   const [routes, setRoutes] = useState([])
+  const [conditions, setConditions] = useState([])
+
+	const [selectCondition, setSelectCondition] = useState<string>('')
 
   const handleSelect = (node: Node) => {
     setCurrentNode(node)
     setRoutes([])
+    setConditions([])
   }
 
   return (
@@ -27,7 +32,10 @@ export default function Dashboard() {
       <Separator orientation='horizontal' size='4' />
       <Flex className='min-h-[300px]' width='100%' direction='row'>
         <Flex className='w-3/4' direction='column'>
-          <Reactions routes={routes} currentNode={currentNode} />
+          {Boolean(routes.length) && <Reactions routes={routes} currentNode={currentNode} />}
+          {Boolean(conditions.length) && (
+            <Conditions conditions={conditions} currentNode={currentNode} setSelectCondition={setSelectCondition} />
+          )}
         </Flex>
         <Flex
           className='w-1/4 ml-2 h-fit'
@@ -48,7 +56,11 @@ export default function Dashboard() {
               <NodeDetail setRoutes={setRoutes} currentNode={currentNode} />
             )}
             {currentNode && currentNode.type === 'reactionNode' && (
-              <RouteDetail currentNode={currentNode} />
+              <RouteDetail
+                setConditions={setConditions}
+                currentNode={currentNode}
+								selectCondition={selectCondition}
+              />
             )}
           </Flex>
         </Flex>

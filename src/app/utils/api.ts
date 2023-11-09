@@ -31,6 +31,21 @@ export const findRoutes = async (smiles: string) => {
   }
 }
 
+export const findConditions = async (reactants: string, product: string) => {
+  const url = `${API}/product/conditions`
+  const data = { reactants: reactants, product: product }
+  try {
+    const res = await axios.post(url, data)
+    if (res.status === 200) {
+      return res.data.conditions
+    } else {
+      return null
+    }
+  } catch (err) {
+    return null
+  }
+}
+
 export const getReactionSVG = async (reactants: string, product: string) => {
   const url = `${API}/product/getreactionsvg`
   const data = { reactants: reactants, product: product }

@@ -9,9 +9,9 @@ export type ChemNodeData = {
 
 export type ReactNodeData = {
   condition: string
-	reactants: string
-	product: string
-	detail?: string
+  reactants: string
+  product: string
+  detail?: string
 }
 
 export type NodeProps = {
@@ -21,6 +21,8 @@ export type NodeProps = {
 
 export type RouteProps = {
   currentNode: Node
+  setConditions: Dispatch<SetStateAction<never[]>>
+  selectCondition: string
 }
 
 // export type ChemData = {

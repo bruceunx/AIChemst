@@ -1,4 +1,4 @@
-import { Button, Heading, Text } from '@radix-ui/themes'
+import { Button, Flex, Heading, Text } from '@radix-ui/themes'
 
 import { RouteProps } from '@/types'
 import { findConditions } from '../utils/api'
@@ -29,7 +29,15 @@ const RouteDetail: React.FC<RouteProps> = ({
     <>
       <Heading>反应条件筛选</Heading>
 
-      {!currentNode.data.detail && (
+      {currentNode.data.detail ? (
+        <Flex direction='column'>
+          <Text>反应溶剂: {JSON.parse(currentNode.data.detail).solvent}</Text>
+          <Text>催化剂: {JSON.parse(currentNode.data.detail).catalyst}</Text>
+          <Text>
+            反应温度: {JSON.parse(currentNode.data.detail).temperature.toFixed(3)}
+          </Text>
+        </Flex>
+      ) : (
         <Button
           radius='full'
           className='hover:cursor-pointer'
@@ -40,7 +48,13 @@ const RouteDetail: React.FC<RouteProps> = ({
         </Button>
       )}
 
-      <Text size='2' className='break-all'>{selectCondition}</Text>
+      {Boolean(Object.keys(selectCondition).length) && (
+        <Flex direction='column'>
+          <Text>反应溶剂: {selectCondition.solvent}</Text>
+          <Text>催化剂: {selectCondition.catalyst}</Text>
+          <Text>反应温度: {selectCondition.temperature.toFixed(3)}</Text>
+        </Flex>
+      )}
       {error && (
         <Text size='1' color='red'>
           无法设计:(

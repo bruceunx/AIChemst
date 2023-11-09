@@ -14,12 +14,13 @@ export default function Dashboard() {
   const [routes, setRoutes] = useState([])
   const [conditions, setConditions] = useState([])
 
-	const [selectCondition, setSelectCondition] = useState<string>('')
+	const [selectCondition, setSelectCondition] = useState<any>({})
 
   const handleSelect = (node: Node) => {
-    setCurrentNode(node)
     setRoutes([])
     setConditions([])
+		setSelectCondition({})
+    setCurrentNode(node)
   }
 
   return (

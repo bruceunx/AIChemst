@@ -23,9 +23,7 @@ const Conditions: React.FC<any> = ({
         return node
       }),
     )
-    setSelectCondition(
-      `催化剂-${condition.catalyst} | 溶剂 - ${condition.solvent} | 温度 - ${condition.temperature.toFixed(2)}`,
-    )
+    setSelectCondition(condition)
   }
   useEffect(() => {
     setValue('0')

@@ -25,7 +25,7 @@ export default function Dashboard() {
 
   return (
     <Flex direction='column' width='100%'>
-      <Search setRoutes={setRoutes} setCurrentNode={setCurrentNode} />
+      <Search setRoutes={setRoutes} setConditions={setConditions} setCurrentNode={setCurrentNode} />
       <Separator orientation='horizontal' size='4' />
       <Flex width='100%' className='h-80'>
         <Chart handleSelect={handleSelect} />

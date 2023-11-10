@@ -33,13 +33,3 @@ export type RouteProps = {
   setConditions: Dispatch<SetStateAction<never[]>>
   selectCondition: condition
 }
-
-// export type ChemData = {
-//   id: string
-//   type: string
-//   position: {
-//     x: number
-//     y: number
-//   }
-//   data: ChemData
-// }

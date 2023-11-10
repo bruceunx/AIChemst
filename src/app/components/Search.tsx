@@ -9,9 +9,11 @@ const ChemEditor = dynamic(() => import('./ChemEditor'), {ssr: false})
 
 export default function Search({
   setRoutes,
+	setConditions,
   setCurrentNode,
 }: {
   setRoutes: Dispatch<SetStateAction<never[]>>
+  setConditions: Dispatch<SetStateAction<never[]>>
   setCurrentNode: Dispatch<SetStateAction<Node | null>>
 }) {
   const { setEdges, setNodes } = useReactFlow()
@@ -24,6 +26,7 @@ export default function Search({
 		setError(false)
 
 		setRoutes([])
+		setConditions([])
 		setNodes([])
 		setEdges([])
 		setCurrentNode(null)

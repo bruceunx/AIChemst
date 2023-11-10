@@ -8,7 +8,14 @@ export const findSmiles = async (input: string) => {
       `https://cactus.nci.nih.gov/chemical/structure/${input}/smiles`,
     )
     if (res.status === 500) {
-      return null
+			const url = `${API}/product/name2smiles`
+			const data = {name: input}
+			const res = await axios.post(url, data)
+			if (res.status == 404){
+				return null
+			}else{
+				return res.data.smiles
+			}
     }
     return res.data
   } catch (err) {

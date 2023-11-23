@@ -8,7 +8,7 @@ const Reaction: React.FC<any> = ({ route, target }) => {
 
   useEffect(() => {
     const updateSvg = async () => {
-      const res = await getReactionSVG(route.smiles, target)
+      const res = await getReactionSVG(route.outcome, target)
       if (res === null) {
         console.log('error from svg fetching')
       } else {

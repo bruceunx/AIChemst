@@ -66,7 +66,7 @@ const Reactions: React.FC<any> = ({ routes, currentNode }) => {
     setTempEdges([])
 
     const route = routes[parseInt(value) - 1]
-    const reactants = route.smiles_split
+    const reactants = route.outcome.split('.')
 
     let newChemNodes = []
 
@@ -82,7 +82,7 @@ const Reactions: React.FC<any> = ({ routes, currentNode }) => {
       type: 'reactionNode',
       data: {
         condition: '#R',
-        reactants: route.smiles,
+        reactants: route.outcome,
         product: currentNode.data.smiles,
       },
       position: {

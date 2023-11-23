@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { getReactionSVG } from '../utils/api'
 
-const Reaction: React.FC<any> = ({ route, target }) => {
+const Reaction: React.FC<any> = ({ route, target, idx }) => {
   const [svg, setSvg] = useState<string | null>(null)
 
   useEffect(() => {
@@ -40,7 +40,7 @@ const Reaction: React.FC<any> = ({ route, target }) => {
           className='bg-green-50 rounded-xl p-2'
         />
       )}
-      <RadioGroup.Item value={route.rank} />
+      <RadioGroup.Item value={idx} />
     </Flex>
   )
 }

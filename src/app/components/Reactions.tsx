@@ -65,7 +65,7 @@ const Reactions: React.FC<any> = ({ routes, currentNode }) => {
     setTempNodes([])
     setTempEdges([])
 
-    const route = routes[parseInt(value) - 1]
+    const route = routes[value]
     const reactants = route.outcome.split('.')
 
     let newChemNodes = []
@@ -134,7 +134,12 @@ const Reactions: React.FC<any> = ({ routes, currentNode }) => {
           <Heading size='4'>是否选择</Heading>
         </Flex>
         {routes.map((route: any, idx: number) => (
-          <Reaction route={route} target={currentNode.data.smiles} key={idx} />
+          <Reaction
+            route={route}
+            target={currentNode.data.smiles}
+            key={idx}
+            idx={idx}
+          />
         ))}
       </Flex>
     </RadioGroup.Root>

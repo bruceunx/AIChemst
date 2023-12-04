@@ -25,12 +25,11 @@ export default function RootLayout({
           <Script src='https://www.googletagmanager.com/gtag/js?id=G-GWTY7T217R' />
           <Script id='google-analytics'>
             {`
-				window.dataLayer = window.dataLayer || [];
-				function gtag(){dataLayer.push(arguments);}
-				gtag('js', new Date());
-
-				gtag('config', 'G-GWTY7T217R');
-        `}
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-GWTY7T217R');
+           `}
           </Script>
           <Header />
           <Nav />

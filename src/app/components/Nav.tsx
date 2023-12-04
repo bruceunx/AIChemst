@@ -14,8 +14,9 @@ export default function Nav() {
       style={{ backgroundColor: 'var(--gray-a6)' }}
     >
       <Flex direction='column' gap='2'>
-        <Link>当前查询</Link>
-        <Link>历史查询</Link>
+        <Link href="/" className='no-underline'>当前查询</Link>
+        <Link href="/profile" className='no-underline'>用户信息</Link>
+        <Link href="/history" className='no-underline'>历史查询</Link>
       </Flex>
       <Flex direction='column'>
         <Text size='1' color='ruby'>

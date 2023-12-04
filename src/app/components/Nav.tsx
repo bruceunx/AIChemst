@@ -13,7 +13,7 @@ export default function Nav() {
       justify='between'
       style={{ backgroundColor: 'var(--gray-a6)' }}
     >
-      <Flex direction='column' gap='2'>
+      <Flex direction='column' gap='4'>
         <Link href="/" className='no-underline'>当前查询</Link>
         <Link href="/profile" className='no-underline'>用户信息</Link>
         <Link href="/history" className='no-underline'>历史查询</Link>

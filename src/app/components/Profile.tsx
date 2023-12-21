@@ -2,7 +2,6 @@ import { DropdownMenu, Button } from '@radix-ui/themes'
 import { CaretDownIcon, PersonIcon } from '@radix-ui/react-icons'
 
 const Profile = () => {
-
   const onProfile = () => {
     console.log('toggle profile')
   }
@@ -15,7 +14,9 @@ const Profile = () => {
         </Button>
       </DropdownMenu.Trigger>
       <DropdownMenu.Content>
-        <DropdownMenu.Item shortcut='⌘ E' onClick={onProfile}>菜单1</DropdownMenu.Item>
+        <DropdownMenu.Item shortcut='⌘ E' onClick={onProfile}>
+          菜单1
+        </DropdownMenu.Item>
         <DropdownMenu.Item shortcut='⌘ D'>菜单2</DropdownMenu.Item>
         <DropdownMenu.Separator />
         <DropdownMenu.Item shortcut='⌘ N'>菜单3</DropdownMenu.Item>
@@ -30,7 +31,6 @@ const Profile = () => {
             <DropdownMenu.Item>Advanced options…</DropdownMenu.Item>
           </DropdownMenu.SubContent>
         </DropdownMenu.Sub>
-
       </DropdownMenu.Content>
     </DropdownMenu.Root>
   )

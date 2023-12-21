@@ -7,7 +7,7 @@ export default function Nav() {
   const pathname = usePathname();
   return (
     <Flex
-      className="h-[95vh] w-48"
+      className="h-[95vh] w-32"
       mt="8"
       pt="5"
       position="fixed"

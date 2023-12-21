@@ -33,7 +33,7 @@ export default function RootLayout({
           </Script>
           <Header />
           <Nav />
-          <Flex direction="column" className="w-full pt-12 pl-28">
+          <Flex direction="column" className="w-full pt-12 pl-32">
             {children}
           </Flex>
         </Theme>

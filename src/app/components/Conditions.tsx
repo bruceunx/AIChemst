@@ -1,71 +1,76 @@
-import React, { useEffect, useState } from 'react'
-import { Flex, Heading, RadioGroup } from '@radix-ui/themes'
-import Condition from './Condition'
-import { useReactFlow } from 'reactflow'
+import React, { useEffect, useState } from "react";
+import { Flex, Heading, RadioGroup } from "@radix-ui/themes";
+import Condition from "./Condition";
+import { useReactFlow } from "reactflow";
 
 const Conditions: React.FC<any> = ({
   conditions,
   currentNode,
   setSelectCondition,
 }) => {
-  const { setNodes } = useReactFlow()
+  const { setNodes } = useReactFlow();
 
-  const [value, setValue] = useState<string>('0')
+  const [value, setValue] = useState<string>("0");
 
   const onChange = (value: string) => {
-    setValue(value)
-    const condition = conditions[parseInt(value) - 1]
+    setValue(value);
+    const condition = conditions[parseInt(value) - 1];
     setNodes((nodes) =>
       nodes.map((node) => {
         if (node.id === currentNode.id) {
-          node.data = { ...node.data, detail: JSON.stringify(condition) }
+          node.data = { ...node.data, detail: JSON.stringify(condition) };
         }
-        return node
+        return node;
       }),
-    )
-    setSelectCondition(condition)
-  }
+    );
+    setSelectCondition(condition);
+  };
   useEffect(() => {
-    setValue('0')
-  }, [currentNode])
+    setValue("0");
+  }, [currentNode]);
 
   return (
     <RadioGroup.Root onValueChange={onChange} value={value}>
-      <Flex direction='column' width='100%' gap='4'>
+      <Flex
+        direction="column"
+        width="100%"
+        className="max-h-[54vh] overflow-y-auto"
+        gap="4"
+      >
         <Flex
-          className='w-full p-2'
-          align='center'
-          justify='center'
-          direction='row'
-          gap='8'
-          style={{ backgroundColor: 'var(--gray-a4)' }}
+          className="w-full p-2"
+          align="center"
+          justify="center"
+          direction="row"
+          gap="8"
+          style={{ backgroundColor: "var(--gray-a4)" }}
         >
-          <Heading size='4' className='w-32'>
+          <Heading size="4" className="w-32">
             条件编号
           </Heading>
-          <Heading size='4' className='w-32'>
+          <Heading size="4" className="w-32">
             评分
           </Heading>
-          <Heading size='4' className='w-48'>
+          <Heading size="4" className="w-48">
             试剂
           </Heading>
-          <Heading size='4' className='w-56'>
+          <Heading size="4" className="w-56">
             溶剂
           </Heading>
-          <Heading size='4' className='w-32'>
+          <Heading size="4" className="w-32">
             催化剂
           </Heading>
-          <Heading size='4' className='w-32'>
+          <Heading size="4" className="w-32">
             反应温度
           </Heading>
-          <Heading size='4'>是否选择</Heading>
+          <Heading size="4">是否选择</Heading>
         </Flex>
         {conditions.map((condition: any, idx: number) => (
           <Condition condition={condition} idx={idx} key={idx} />
         ))}
       </Flex>
     </RadioGroup.Root>
-  )
-}
+  );
+};
 
-export default Conditions
+export default Conditions;

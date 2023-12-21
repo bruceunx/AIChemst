@@ -3,25 +3,21 @@ import { Flex, Link, Text } from "@radix-ui/themes";
 import { usePathname } from "next/navigation";
 
 export default function Nav() {
-
   const pathname = usePathname();
   return (
     <Flex
-      className="h-[95vh] w-32"
-      mt="8"
-      pt="5"
+      className="h-screen w-40 pt-20"
       position="fixed"
       direction="column"
       align="center"
       justify="between"
-      style={{ backgroundColor: "var(--gray-a6)" }}
     >
-      <Flex direction="column" width="100%" align="center" px="1">
+      <Flex direction="column" width="100%" align="center" gap="2" px="2">
         <Link
           href="/"
           className={`no-underline w-full ${
-            pathname === "/" ? "bg-teal-600 text-white" : ""
-          } text-center p-2 rounded-md hover:text-white hover:bg-teal-600`}
+            pathname === "/" ? "bg-blue-500 text-white" : ""
+          } text-center p-2 hover:text-white hover:bg-blue-500`}
           size="2"
         >
           当前查询
@@ -29,8 +25,8 @@ export default function Nav() {
         <Link
           href="/profile"
           className={`no-underline w-full ${
-            pathname === "/profile" ? "bg-teal-600 text-white" : ""
-          } text-center p-2 rounded-md hover:text-white hover:bg-teal-600`}
+            pathname === "/profile" ? "bg-blue-500 text-white" : ""
+          } text-center p-2 hover:text-white hover:bg-blue-500`}
           size="2"
         >
           用户信息
@@ -38,8 +34,8 @@ export default function Nav() {
         <Link
           href="/history"
           className={`no-underline w-full ${
-            pathname === "/history" ? "bg-teal-600 text-white" : ""
-          } text-center p-2 rounded-md hover:text-white hover:bg-teal-600`}
+            pathname === "/history" ? "bg-blue-500 text-white" : ""
+          } text-center p-2 hover:text-white hover:bg-blue-500`}
           size="2"
         >
           历史查询

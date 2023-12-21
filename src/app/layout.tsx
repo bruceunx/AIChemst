@@ -31,10 +31,16 @@ export default function RootLayout({
               gtag('config', 'G-GWTY7T217R');
            `}
           </Script>
+
           <Header />
           <Nav />
-          <Flex direction="column" className="w-full pt-12 pl-32">
-            {children}
+          <Flex direction="column" className="h-screen w-full">
+            <Flex
+              direction="column"
+              className="h-full rounded-3xl mb-2 ml-52 mt-16 mr-20 bg-gray-800"
+            >
+              {children}
+            </Flex>
           </Flex>
         </Theme>
       </body>

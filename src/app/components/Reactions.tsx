@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Flex, Heading, RadioGroup } from "@radix-ui/themes";
+import { Flex, RadioGroup, Table } from "@radix-ui/themes";
 import Reaction from "./Reaction";
 import { useReactFlow } from "reactflow";
 import { getChemicalSVG } from "../utils/api";
@@ -13,24 +13,23 @@ const Reactions: React.FC<any> = ({ routes, currentNode }) => {
 
   const { addEdges, addNodes, setEdges, setNodes, fitView } = useReactFlow();
 
-  const generateNode = async (smiles: string, idx: number) => {
+  const generateNode = async (smiles: string, idx: number, value: number) => {
     const svg = await getChemicalSVG(smiles);
     if (svg === null) {
       return null;
     } else {
       const svgUrl = `data:image/svg+xml,${encodeURIComponent(svg)}`;
 
-      let _id = `chemNode_${currentNode.id}_${idx}`;
-      const offsetY = 200 * idx;
-      const step = idx >= 0 ? -1 : 1;
-      idx = -1 * idx + step;
+      let _id = `chemNode_${currentNode.id}_${idx}_${value}`;
+      if (idx % 2 === 1) idx *= -1;
+      const offsetY = 100 * idx;
       return {
         id: _id,
         type: "chemNode",
         data: { imgUrl: svgUrl, isLeaf: true, smiles: smiles },
         position: {
-          x: currentNode.position.x - 400,
-          y: currentNode.position.y - 300 + offsetY,
+          x: currentNode.position.x - 300,
+          y: currentNode.position.y + offsetY,
         },
       };
     }
@@ -73,7 +72,7 @@ const Reactions: React.FC<any> = ({ routes, currentNode }) => {
     let newChemNodes = [];
 
     for (let i = 0; i < reactants.length; i++) {
-      let node = await generateNode(reactants[i], i);
+      let node = await generateNode(reactants[i], i, Number.parseInt(value));
       if (node !== null) {
         newChemNodes.push(node);
       }
@@ -133,21 +132,28 @@ const Reactions: React.FC<any> = ({ routes, currentNode }) => {
           gap="8"
           style={{ backgroundColor: "var(--gray-a4)" }}
         >
-          <Heading size="4">路线编号</Heading>
-          <Heading size="4">设计可靠性</Heading>
-          <Heading size="4" className="text-center w-[800px]">
-            反应路线
-          </Heading>
-          <Heading size="4">是否选择</Heading>
+          <Table.Root variant="surface" className="w-full">
+            <Table.Header>
+              <Table.Row>
+                <Table.ColumnHeaderCell>可靠性</Table.ColumnHeaderCell>
+                <Table.ColumnHeaderCell className="w-[800px]">
+                  反应路线
+                </Table.ColumnHeaderCell>
+                <Table.ColumnHeaderCell>选择</Table.ColumnHeaderCell>
+              </Table.Row>
+            </Table.Header>
+            <Table.Body>
+              {routes.map((route: any, idx: number) => (
+                <Reaction
+                  route={route}
+                  target={currentNode.data.smiles}
+                  key={idx}
+                  idx={idx}
+                />
+              ))}
+            </Table.Body>
+          </Table.Root>
         </Flex>
-        {routes.map((route: any, idx: number) => (
-          <Reaction
-            route={route}
-            target={currentNode.data.smiles}
-            key={idx}
-            idx={idx}
-          />
-        ))}
       </Flex>
     </RadioGroup.Root>
   );

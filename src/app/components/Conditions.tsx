@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Flex, Heading, RadioGroup } from "@radix-ui/themes";
+import { Flex, RadioGroup, Table } from "@radix-ui/themes";
 import Condition from "./Condition";
 import { useReactFlow } from "reactflow";
 
@@ -45,29 +45,24 @@ const Conditions: React.FC<any> = ({
           gap="8"
           style={{ backgroundColor: "var(--gray-a4)" }}
         >
-          <Heading size="4" className="w-32">
-            条件编号
-          </Heading>
-          <Heading size="4" className="w-32">
-            评分
-          </Heading>
-          <Heading size="4" className="w-48">
-            试剂
-          </Heading>
-          <Heading size="4" className="w-56">
-            溶剂
-          </Heading>
-          <Heading size="4" className="w-32">
-            催化剂
-          </Heading>
-          <Heading size="4" className="w-32">
-            反应温度
-          </Heading>
-          <Heading size="4">是否选择</Heading>
+          <Table.Root variant="surface" className="w-full">
+            <Table.Header>
+              <Table.Row>
+                <Table.ColumnHeaderCell>评分</Table.ColumnHeaderCell>
+                <Table.ColumnHeaderCell>试剂</Table.ColumnHeaderCell>
+                <Table.ColumnHeaderCell>溶剂</Table.ColumnHeaderCell>
+                <Table.ColumnHeaderCell>催化剂</Table.ColumnHeaderCell>
+                <Table.ColumnHeaderCell>反应温度</Table.ColumnHeaderCell>
+                <Table.ColumnHeaderCell>选择</Table.ColumnHeaderCell>
+              </Table.Row>
+            </Table.Header>
+            <Table.Body>
+              {conditions.map((condition: any, idx: number) => (
+                <Condition condition={condition} idx={idx} key={idx} />
+              ))}
+            </Table.Body>
+          </Table.Root>
         </Flex>
-        {conditions.map((condition: any, idx: number) => (
-          <Condition condition={condition} idx={idx} key={idx} />
-        ))}
       </Flex>
     </RadioGroup.Root>
   );

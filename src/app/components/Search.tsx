@@ -1,4 +1,4 @@
-import { Button, Flex, Link, Text, TextField } from '@radix-ui/themes'
+import { Button, Flex, Text, TextField } from '@radix-ui/themes'
 import { MagnifyingGlassIcon } from '@radix-ui/react-icons'
 import { Dispatch, SetStateAction, useState } from 'react'
 import { findRoutes, findSmiles, getChemicalSVG } from '../utils/api'

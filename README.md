@@ -6,6 +6,4 @@
 
 ### AI design synthesis routes and conditions
 
-![](./sample1.png)
-![](./sample2.png)
-![](./sample3.png)
+![](./newscreenshot.png)

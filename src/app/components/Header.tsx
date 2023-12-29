@@ -2,10 +2,14 @@
 import { Flex, Heading, Button } from "@radix-ui/themes";
 import { ExitIcon } from "@radix-ui/react-icons";
 import Profile from "./Profile";
+import { useAuth } from "../auth/AutoWrapper";
+import { redirect } from "next/navigation";
 
 export default function Header() {
+  const { logout } = useAuth();
   const onExit = () => {
-    console.log("onExit");
+    logout();
+    return redirect("/");
   };
 
   return (

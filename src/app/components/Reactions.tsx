@@ -21,14 +21,16 @@ const Reactions: React.FC<any> = ({ routes, currentNode }) => {
       const svgUrl = `data:image/svg+xml,${encodeURIComponent(svg)}`;
 
       let _id = `chemNode_${currentNode.id}_${idx}`;
-      idx++;
+      const offsetY = 200 * idx;
+      const step = idx >= 0 ? -1 : 1;
+      idx = -1 * idx + step;
       return {
         id: _id,
         type: "chemNode",
         data: { imgUrl: svgUrl, isLeaf: true, smiles: smiles },
         position: {
           x: currentNode.position.x - 400,
-          y: currentNode.position.y - 300 + idx * 200,
+          y: currentNode.position.y - 300 + offsetY,
         },
       };
     }

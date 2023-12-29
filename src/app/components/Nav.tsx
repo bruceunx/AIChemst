@@ -6,7 +6,7 @@ export default function Nav() {
   const pathname = usePathname();
   return (
     <Flex
-      className="h-screen w-40 pt-20"
+      className="h-screen w-48 pt-20"
       position="fixed"
       direction="column"
       align="center"
@@ -15,7 +15,7 @@ export default function Nav() {
       <Flex direction="column" width="100%" align="center" gap="2" px="2">
         <Link
           href="/"
-          className={`no-underline w-full ${
+          className={`no-underline w-full rounded-full ${
             pathname === "/" ? "bg-blue-500 text-white" : ""
           } text-center p-2 hover:text-white hover:bg-blue-500`}
           size="2"
@@ -24,7 +24,7 @@ export default function Nav() {
         </Link>
         <Link
           href="/profile"
-          className={`no-underline w-full ${
+          className={`no-underline w-full rounded-full ${
             pathname === "/profile" ? "bg-blue-500 text-white" : ""
           } text-center p-2 hover:text-white hover:bg-blue-500`}
           size="2"
@@ -33,7 +33,7 @@ export default function Nav() {
         </Link>
         <Link
           href="/history"
-          className={`no-underline w-full ${
+          className={`no-underline w-full rounded-full ${
             pathname === "/history" ? "bg-blue-500 text-white" : ""
           } text-center p-2 hover:text-white hover:bg-blue-500`}
           size="2"

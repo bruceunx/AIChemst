@@ -11,5 +11,5 @@
 ![](./screenshot2.png)
 
 ### TODO
-[ ] export pdf for each reaction with conditions
-[ ] save user info and history data
+ - [ ] export pdf for each reaction with conditions
+ - [ ] save user info and history data

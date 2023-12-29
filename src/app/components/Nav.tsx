@@ -16,8 +16,8 @@ export default function Nav() {
         <Link
           href="/"
           className={`no-underline w-full rounded-full ${
-            pathname === "/" ? "bg-blue-500 text-white" : ""
-          } text-center p-2 hover:text-white hover:bg-blue-500`}
+            pathname === "/" ? "bg-blue-500 text-white" : "hover:bg-gray-500"
+          } text-center p-2 hover:text-white`}
           size="2"
         >
           当前查询
@@ -25,8 +25,10 @@ export default function Nav() {
         <Link
           href="/profile"
           className={`no-underline w-full rounded-full ${
-            pathname === "/profile" ? "bg-blue-500 text-white" : ""
-          } text-center p-2 hover:text-white hover:bg-blue-500`}
+            pathname === "/profile"
+              ? "bg-blue-500 text-white"
+              : "hover:bg-gray-500"
+          } text-center p-2 hover:text-white `}
           size="2"
         >
           用户信息
@@ -34,8 +36,10 @@ export default function Nav() {
         <Link
           href="/history"
           className={`no-underline w-full rounded-full ${
-            pathname === "/history" ? "bg-blue-500 text-white" : ""
-          } text-center p-2 hover:text-white hover:bg-blue-500`}
+            pathname === "/history"
+              ? "bg-blue-500 text-white"
+              : "hover:bg-gray-500"
+          } text-center p-2 hover:text-white `}
           size="2"
         >
           历史查询

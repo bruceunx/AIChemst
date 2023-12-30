@@ -22,6 +22,7 @@ export default function Search({
   const [text, setText] = useState<string>('开始查询')
   const [error, setError] = useState<boolean>(false)
   const handleClick = async () => {
+    if(input.trim().length === 0) return
     setText('查询中...')
 		setError(false)
 

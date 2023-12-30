@@ -18,7 +18,7 @@ const ChemEditor: React.FC<any> = ({ setInput }) => {
   return (
     <Dialog.Root>
       <Dialog.Trigger>
-        <Button>👉按结构图查询</Button>
+        <Button className="bg-teal-800">👉按结构图查询</Button>
       </Dialog.Trigger>
 
       <Dialog.Content style={{ minWidth: '1200px' }}>

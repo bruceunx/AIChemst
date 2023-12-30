@@ -33,16 +33,16 @@ export default function RootLayout({
         </Script>
         <Theme accentColor="blue" appearance="dark" radius="large">
           <Flex direction="column" className="h-screen w-full">
-<NextAuthProvider>
-            <Header />
-            <Nav />
-            <Flex
-              direction="column"
-              className="h-full rounded-3xl mb-2 ml-52 mt-16 mr-20 bg-gray-800"
-            >
-              {children}
-            </Flex>
-</NextAuthProvider>
+            <NextAuthProvider>
+              <Header />
+              <Nav />
+              <Flex
+                direction="column"
+                className="h-full rounded-3xl mb-2 ml-52 mt-16 mr-20 bg-gray-800"
+              >
+                {children}
+              </Flex>
+            </NextAuthProvider>
           </Flex>
         </Theme>
       </body>

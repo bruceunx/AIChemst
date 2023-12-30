@@ -6,7 +6,7 @@ import Profile from "./Profile";
 import { signOut, useSession } from "next-auth/react";
 
 export default function Header() {
-  const {data} = useSession();
+  const { data } = useSession();
   console.log(data);
   const onExit = () => {
     console.log("onExit");

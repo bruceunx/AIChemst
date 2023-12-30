@@ -6,7 +6,7 @@ import { useAuth } from "../auth/AutoWrapper";
 import { redirect } from "next/navigation";
 
 export default function Header() {
-  const { logout } = useAuth();
+  const { user, logout } = useAuth();
   const onExit = () => {
     logout();
     return redirect("/");
@@ -29,13 +29,15 @@ export default function Header() {
 
       <Flex gap="1">
         <Profile />
-        <Button
-          variant="soft"
-          onClick={onExit}
-          className="hover: cursor-pointer"
-        >
-          <ExitIcon />
-        </Button>
+        {user !== null && (
+          <Button
+            variant="soft"
+            onClick={onExit}
+            className="hover: cursor-pointer"
+          >
+            <ExitIcon />
+          </Button>
+        )}
       </Flex>
     </Flex>
   );

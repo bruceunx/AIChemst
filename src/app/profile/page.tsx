@@ -1,13 +1,22 @@
 "use client";
 import { Flex, Text, Heading } from "@radix-ui/themes";
-import { useAuth } from "../auth/AutoWrapper";
 import { redirect } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 export default function Profile() {
-  const { user } = useAuth();
+  const { status } = useSession({
+    required: true,
+    onUnauthenticated() {
+      redirect("/login");
+    },
+  });
 
-  if (user === null) {
-    return redirect("/");
+  if (status === "loading") {
+    return (
+      <Flex className="m-auto">
+        <Text>正在加载中....</Text>
+      </Flex>
+    );
   }
 
   return (

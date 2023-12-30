@@ -6,6 +6,7 @@
 
 ### AI design synthesis routes and conditions
 
-![](./sample1.png)
-![](./sample2.png)
-![](./sample3.png)
+### TODO
+
+- [ ] add user login
+- [ ] export pdf including every single step

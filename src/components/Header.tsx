@@ -1,17 +1,17 @@
 "use client";
+
 import { Flex, Heading, Button } from "@radix-ui/themes";
 import { ExitIcon } from "@radix-ui/react-icons";
 import Profile from "./Profile";
-import { useAuth } from "../auth/AutoWrapper";
-import { redirect } from "next/navigation";
+import { signOut, useSession } from "next-auth/react";
 
 export default function Header() {
-  const { user, logout } = useAuth();
+  const {data} = useSession();
+  console.log(data);
   const onExit = () => {
-    logout();
-    return redirect("/");
+    console.log("onExit");
+    signOut({ redirect: true, callbackUrl: "/" });
   };
-
   return (
     <Flex
       direction="row"
@@ -29,7 +29,7 @@ export default function Header() {
 
       <Flex gap="1">
         <Profile />
-        {user !== null && (
+        {data && (
           <Button
             variant="soft"
             onClick={onExit}

@@ -1,8 +1,24 @@
 "use client";
 
-import { Table, Flex, Link } from "@radix-ui/themes";
+import { Table, Flex, Link, Text } from "@radix-ui/themes";
+import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
 
 export default function History() {
+  const { status } = useSession({
+    required: true,
+    onUnauthenticated() {
+      redirect("/login");
+    },
+  });
+
+  if (status === "loading") {
+    return (
+      <Flex className="m-auto">
+        <Text>正在加载中....</Text>
+      </Flex>
+    );
+  }
   return (
     <Flex p="7" className="w-1/2 mx-auto">
       <Table.Root variant="surface" className="w-full">

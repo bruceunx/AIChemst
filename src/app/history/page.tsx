@@ -27,37 +27,41 @@ export default function History() {
             <Table.ColumnHeaderCell>序号</Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell>时间</Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell>目标Smiles</Table.ColumnHeaderCell>
+            <Table.ColumnHeaderCell>删除</Table.ColumnHeaderCell>
           </Table.Row>
         </Table.Header>
 
         <Table.Body>
           <Table.Row>
             <Table.RowHeaderCell>1</Table.RowHeaderCell>
+            <Table.Cell>2023-12-01</Table.Cell>
             <Table.Cell>
-             2023-12-01 
+              <Link href="/history/1">C1CCC</Link>
             </Table.Cell>
             <Table.Cell>
-              <Link>C1CCC</Link>
+              <Link>删除</Link>
             </Table.Cell>
           </Table.Row>
 
           <Table.Row>
             <Table.RowHeaderCell>2</Table.RowHeaderCell>
+            <Table.Cell>2023-12-01</Table.Cell>
             <Table.Cell>
-             2023-12-01 
+              <Link href="/history/2">C1CCC</Link>
             </Table.Cell>
             <Table.Cell>
-              <Link>C1CCC</Link>
+              <Link>删除</Link>
             </Table.Cell>
           </Table.Row>
 
           <Table.Row>
             <Table.RowHeaderCell>3</Table.RowHeaderCell>
+            <Table.Cell>2023-12-01</Table.Cell>
             <Table.Cell>
-             2023-12-01 
+              <Link href="/history/3">C1CCC</Link>
             </Table.Cell>
             <Table.Cell>
-              <Link>C1CCC</Link>
+              <Link>删除</Link>
             </Table.Cell>
           </Table.Row>
         </Table.Body>

@@ -25,6 +25,7 @@ export default function History() {
         <Table.Header>
           <Table.Row>
             <Table.ColumnHeaderCell>序号</Table.ColumnHeaderCell>
+            <Table.ColumnHeaderCell>时间</Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell>目标Smiles</Table.ColumnHeaderCell>
           </Table.Row>
         </Table.Header>
@@ -33,6 +34,9 @@ export default function History() {
           <Table.Row>
             <Table.RowHeaderCell>1</Table.RowHeaderCell>
             <Table.Cell>
+             2023-12-01 
+            </Table.Cell>
+            <Table.Cell>
               <Link>C1CCC</Link>
             </Table.Cell>
           </Table.Row>
@@ -40,12 +44,18 @@ export default function History() {
           <Table.Row>
             <Table.RowHeaderCell>2</Table.RowHeaderCell>
             <Table.Cell>
+             2023-12-01 
+            </Table.Cell>
+            <Table.Cell>
               <Link>C1CCC</Link>
             </Table.Cell>
           </Table.Row>
 
           <Table.Row>
             <Table.RowHeaderCell>3</Table.RowHeaderCell>
+            <Table.Cell>
+             2023-12-01 
+            </Table.Cell>
             <Table.Cell>
               <Link>C1CCC</Link>
             </Table.Cell>

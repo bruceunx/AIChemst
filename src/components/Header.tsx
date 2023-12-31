@@ -4,13 +4,14 @@ import { Flex, Heading, Button } from "@radix-ui/themes";
 import { ExitIcon } from "@radix-ui/react-icons";
 import Profile from "./Profile";
 import { signOut, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function Header() {
-  const { data } = useSession();
-  console.log(data);
-  const onExit = () => {
-    console.log("onExit");
-    signOut({ redirect: true, callbackUrl: "/" });
+  const router = useRouter();
+  const { status } = useSession();
+  const onExit = async () => {
+    await signOut({ redirect: false });
+    router.push("/");
   };
   return (
     <Flex
@@ -29,7 +30,7 @@ export default function Header() {
 
       <Flex gap="1">
         <Profile />
-        {data && (
+        {status === "authenticated" && (
           <Button
             variant="soft"
             onClick={onExit}

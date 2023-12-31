@@ -13,6 +13,7 @@ import ReactionNode from "./ReactionNode";
 import ChemNode from "./ChemNode";
 import { useCallback, MouseEvent, useState } from "react";
 import Analyzer from "@/utils/synthesis";
+import { useToast } from "./CustomToast";
 
 const nodeTypes = {
   chemNode: ChemNode,
@@ -33,6 +34,7 @@ export default function Chart({
 }: {
   handleSelect: (node: Node) => void;
 }) {
+  let { showToast } = useToast();
   const [nodes, _, onNodesChange] = useNodesState([]);
   const [edges, __, onEdgesChange] = useEdgesState([]);
   const [rfInstance, setRfInstance] = useState(null);
@@ -43,16 +45,16 @@ export default function Chart({
     },
     [handleSelect],
   );
-
   const onSave = useCallback(() => {
     if (rfInstance) {
       // @ts-ignore-next-line
       const flow = rfInstance.toObject();
       const analysis = new Analyzer(flow);
       console.log(JSON.stringify(analysis.getNodeLink()));
+      showToast("result saved!");
       // upload to api and get notifications
     }
-  }, [rfInstance]);
+  }, [rfInstance, showToast]);
 
   const onExport = useCallback(() => {
     if (rfInstance) {

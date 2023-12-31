@@ -2,7 +2,7 @@ import { memo } from 'react'
 import { Flex } from '@radix-ui/themes'
 import { Handle, Position, NodeProps } from 'reactflow'
 import Image from 'next/image'
-import { ChemNodeData } from '../../types'
+import { ChemNodeData } from '@/types'
 
 function ChemNode({ data }: NodeProps<ChemNodeData>) {
   const handleStyle = {

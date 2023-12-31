@@ -1,7 +1,7 @@
 import { memo } from 'react'
 import { Flex, Text } from '@radix-ui/themes'
 import { Handle, Position, NodeProps } from 'reactflow'
-import { ReactNodeData } from '../../types'
+import { ReactNodeData } from '@/types'
 
 function ReactionNode({ data }: NodeProps<ReactNodeData>) {
   const handleStyle = {

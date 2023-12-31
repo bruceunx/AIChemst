@@ -1,7 +1,7 @@
 import { RadioGroup, Table } from "@radix-ui/themes";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { getChemicalSVG } from "../utils/api";
+import { getChemicalSVG } from "@/utils/api";
 
 const Condition: React.FC<any> = ({ condition, idx }) => {
   console.log(condition);

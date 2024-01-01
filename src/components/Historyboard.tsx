@@ -28,7 +28,6 @@ export default function Dashboard(props: HistoryProps) {
 
   return (
     <Flex direction="column" width="100%">
-      <Separator orientation="horizontal" size="4" />
       <Flex width="100%" className="h-80">
         <ToastProvider>
           <HistoryChart handleSelect={handleSelect} content={props.content} />

@@ -22,7 +22,7 @@ const Reaction: React.FC<any> = ({ route, target, idx }) => {
 
   return (
     <Table.Row className='w-full h-36'>
-      <Table.RowHeaderCell>{route.plausibility.toFixed(4)}</Table.RowHeaderCell>
+      <Table.RowHeaderCell>{route.plausibility.toFixed(2)}</Table.RowHeaderCell>
       <Table.Cell>
         {svg && (
           <Image

@@ -37,7 +37,7 @@ const Condition: React.FC<any> = ({ condition, idx }) => {
   }, []);
   return (
     <Table.Row className="w-full">
-      <Table.RowHeaderCell>{condition.score.toFixed(4)}</Table.RowHeaderCell>
+      <Table.RowHeaderCell>{condition.score.toFixed(2)}</Table.RowHeaderCell>
       <Table.Cell>
         {reagent && (
           <Image
@@ -71,7 +71,7 @@ const Condition: React.FC<any> = ({ condition, idx }) => {
           />
         )}
       </Table.Cell>
-      <Table.Cell>{condition.temperature.toFixed(3)}</Table.Cell>
+      <Table.Cell>{condition.temperature.toFixed(1)}</Table.Cell>
       <Table.Cell>
         <RadioGroup.Item value={idx + 1} />
       </Table.Cell>

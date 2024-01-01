@@ -105,7 +105,7 @@ const RouteDetail: React.FC<RouteProps> = ({
           </Flex>
           <Text>
             反应温度: &nbsp;{" "}
-            {JSON.parse(currentNode.data.detail).temperature.toFixed(3)}℃
+            {JSON.parse(currentNode.data.detail).temperature.toFixed(1)}℃
           </Text>
         </Flex>
       ) : (

@@ -2,7 +2,7 @@ import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 
 const API = "https://apichem.pylogic.net/v1";
-const testAPI = "http://127.0.0.1:8000/v1";
+const testAPI = "https://apichem.pylogic.net/v1";
 
 export const getUserToken = async (username: string, password: string) => {
   try {
@@ -39,7 +39,7 @@ export const getHistoryRoutes = async (token: string) => {
   }
 };
 
-export const getHistoryRoute = async (token:string, id: string) => {
+export const getHistoryRoute = async (token: string, id: string) => {
   try {
     const url = `${testAPI}/synthesis/get_route/${id}`;
     const res = await axios.get(url, {
@@ -50,14 +50,14 @@ export const getHistoryRoute = async (token:string, id: string) => {
     if (res.status === 200) {
       return res.data.route;
     } else {
-      return null
+      return null;
     }
   } catch (err) {
-    return null
+    return null;
   }
 };
 
-export const deleteHistoryRoute = async (token:string, id: number) => {
+export const deleteHistoryRoute = async (token: string, id: number) => {
   try {
     const url = `${testAPI}/synthesis/del_route/${id}`;
     const res = await axios.delete(url, {
@@ -68,10 +68,10 @@ export const deleteHistoryRoute = async (token:string, id: number) => {
     if (res.status === 200) {
       return 0;
     } else {
-      return -1
+      return -1;
     }
   } catch (err) {
-    return -1
+    return -1;
   }
 };
 

@@ -9,5 +9,5 @@
 ### TODO
 
 - [x] add user login
-- [ ] save reaction path to json and to db
+- [x] save reaction path to json and to db
 - [ ] export pdf including every single step

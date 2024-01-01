@@ -3,7 +3,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { getUserToken } from "@/utils/api";
 
 export const authOptions: NextAuthOptions = {
-  secret: process.env.NEXT_AUTH_SECRET,
+  secret: "55975038dc37cf6d73924996a715aee0",
   providers: [
     CredentialsProvider({
       name: "credentials",

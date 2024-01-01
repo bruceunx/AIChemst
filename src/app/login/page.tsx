@@ -50,7 +50,9 @@ export default function Profile() {
           pb="3"
         >
           <Flex direction="row" gap="3">
-            <label htmlFor="username" className="w-14">用户名:</label>
+            <label htmlFor="username" className="w-14">
+              用户名:
+            </label>
             <TextField.Input
               type="text"
               id="username"
@@ -66,7 +68,9 @@ export default function Profile() {
             </Text>
           )}
           <Flex direction="row" gap="3">
-            <label htmlFor="password" className="w-14">密码:</label>
+            <label htmlFor="password" className="w-14">
+              密码:
+            </label>
             <TextField.Input
               id="password"
               {...register("password", {
@@ -84,6 +88,9 @@ export default function Profile() {
               {errors.password.message}
             </Text>
           )}
+          <Text size="2" color="gray">
+            测试用户 tes：test123
+          </Text>
           <Button className="bg-teal-700 w-64" type="submit">
             登陆
           </Button>

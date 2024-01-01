@@ -56,10 +56,53 @@ const RouteDetail: React.FC<RouteProps> = ({
       }
     };
     if (currentNode) {
-      let condition = JSON.parse(currentNode.data.detail);
-      updateSvg(condition);
+      try {
+        let condition = JSON.parse(currentNode.data.detail);
+        updateSvg(condition);
+      } catch (err) {
+        return;
+      }
     }
   }, [currentNode]);
+
+  useEffect(() => {
+    const updateSvg = async (condition: any) => {
+      if (condition.reagent.length > 0) {
+        const res = await getChemicalSVG(condition.reagent);
+        if (res !== null) {
+          const svgUrl = `data:image/svg+xml,${encodeURIComponent(res)}`;
+          setReagent(svgUrl);
+        }
+      } else {
+        setReagent(null);
+      }
+      if (condition.solvent.length > 0) {
+        const res = await getChemicalSVG(condition.solvent);
+        if (res !== null) {
+          const svgUrl = `data:image/svg+xml,${encodeURIComponent(res)}`;
+          setSolvent(svgUrl);
+        }
+      } else {
+        setSolvent(null);
+      }
+      if (condition.catalyst.length > 0) {
+        const res = await getChemicalSVG(condition.catalyst);
+        if (res !== null) {
+          const svgUrl = `data:image/svg+xml,${encodeURIComponent(res)}`;
+          setCatalyst(svgUrl);
+        }
+      } else {
+        setCatalyst(null);
+      }
+    };
+    if (Object.keys(selectCondition).length > 0) {
+      try {
+        updateSvg(selectCondition);
+      } catch (err) {
+        return;
+      }
+    }
+  }, [selectCondition]);
 
   return (
     <>
@@ -120,10 +163,46 @@ const RouteDetail: React.FC<RouteProps> = ({
       )}
 
       {Boolean(Object.keys(selectCondition).length) && (
-        <Flex direction="column">
-          <Text>反应溶剂: {selectCondition.solvent}</Text>
-          <Text>催化剂: {selectCondition.catalyst}</Text>
-          <Text>反应温度: {selectCondition.temperature.toFixed(3)}</Text>
+        <Flex direction="column" gap="2" align="start" justify="start">
+          <Flex direction="row" gap="2">
+            <Text className="w-20">反应试剂:</Text>
+            {reagent && (
+              <Image
+                src={reagent}
+                alt="reagent"
+                width={70}
+                height={70}
+                className="bg-white rounded-md p-2"
+              />
+            )}
+          </Flex>
+          <Flex direction="row" gap="2">
+            <Text className="w-20">反应溶剂:</Text>
+            {solvent && (
+              <Image
+                src={solvent}
+                alt="solvent"
+                width={70}
+                height={70}
+                className="bg-white rounded-md p-2"
+              />
+            )}
+          </Flex>
+          <Flex direction="row" gap="2">
+            <Text className="w-20">催化剂:</Text>
+            {catalyst && (
+              <Image
+                src={catalyst}
+                alt="catalyst"
+                width={70}
+                height={70}
+                className="bg-white rounded-md p-2"
+              />
+            )}
+          </Flex>
+          <Text>
+            反应温度: &nbsp; {selectCondition.temperature.toFixed(1)}℃
+          </Text>
         </Flex>
       )}
       {error && (

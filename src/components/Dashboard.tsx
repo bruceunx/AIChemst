@@ -55,16 +55,13 @@ export default function Dashboard() {
           className="w-1/4 ml-2 h-[54vh]"
           align="center"
           direction="column"
-          gap="4"
+          gap="2"
           style={{ backgroundColor: "var(--gray-a4)" }}
         >
           <Text align="center">{currentNode ? "当前目标" : "未选中目标"} </Text>
           <Flex
-            align="center"
-            justify="center"
-            className="w-64 p-2 mt-4 h-full"
+            className="w-64 h-full"
             direction="column"
-            gap="4"
           >
             {currentNode && currentNode.type === "chemNode" && (
               <NodeDetail setRoutes={setRoutes} currentNode={currentNode} />

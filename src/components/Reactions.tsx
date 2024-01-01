@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Flex, RadioGroup, Table } from "@radix-ui/themes";
 import Reaction from "./Reaction";
-import { useReactFlow } from "reactflow";
+import { useReactFlow, useNodes, Node } from "reactflow";
 import { getChemicalSVG } from "../utils/api";
 
 const Reactions: React.FC<any> = ({ routes, currentNode }) => {
@@ -12,6 +12,7 @@ const Reactions: React.FC<any> = ({ routes, currentNode }) => {
   const [tempEdges, setTempEdges] = useState<any[]>([]);
 
   const { addEdges, addNodes, setEdges, setNodes, fitView } = useReactFlow();
+  const nodes = useNodes();
 
   const generateNode = async (smiles: string, idx: number, value: number) => {
     const svg = await getChemicalSVG(smiles);

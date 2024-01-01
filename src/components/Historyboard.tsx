@@ -19,7 +19,7 @@ export default function Dashboard(props: HistoryProps) {
 
   const [selectCondition, setSelectCondition] = useState<any>({});
 
-  const handleSelect = (node: Node) => {
+  const handleSelect = (node: Node | null) => {
     setRoutes([]);
     setConditions([]);
     setSelectCondition({});
@@ -55,13 +55,7 @@ export default function Dashboard(props: HistoryProps) {
           style={{ backgroundColor: "var(--gray-a4)" }}
         >
           <Text align="center">{currentNode ? "当前目标" : "未选中目标"} </Text>
-          <Flex
-            align="center"
-            justify="center"
-            className="w-64 p-2 mt-4 h-full"
-            direction="column"
-            gap="4"
-          >
+          <Flex className="w-64 h-full" direction="column">
             {currentNode && currentNode.type === "chemNode" && (
               <NodeDetail setRoutes={setRoutes} currentNode={currentNode} />
             )}

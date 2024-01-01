@@ -106,10 +106,10 @@ const RouteDetail: React.FC<RouteProps> = ({
 
   return (
     <>
-      <Heading>反应条件筛选</Heading>
+      <Heading align='center' className='py-2'>反应条件筛选</Heading>
 
       {currentNode.data.detail ? (
-        <Flex direction="column" gap="2" align="start" justify="start">
+        <Flex direction="column" gap="2" py='4' align="start" justify="start">
           <Flex direction="row" gap="2">
             <Text className="w-20">反应试剂:</Text>
             {reagent && (
@@ -163,7 +163,7 @@ const RouteDetail: React.FC<RouteProps> = ({
       )}
 
       {Boolean(Object.keys(selectCondition).length) && (
-        <Flex direction="column" gap="2" align="start" justify="start">
+        <Flex direction="column" gap="2" py='4' align="start" justify="start">
           <Flex direction="row" gap="2">
             <Text className="w-20">反应试剂:</Text>
             {reagent && (

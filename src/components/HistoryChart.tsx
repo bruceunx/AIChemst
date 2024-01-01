@@ -7,6 +7,9 @@ import ReactFlow, {
   Node,
   Panel,
   useReactFlow,
+  getIncomers,
+  getConnectedEdges,
+  getOutgoers,
 } from "reactflow";
 import "reactflow/dist/style.css";
 
@@ -36,13 +39,14 @@ export default function HistoryChart({
   handleSelect,
   content,
 }: {
-  handleSelect: (node: Node) => void;
+  handleSelect: (node: Node | null) => void;
   content: string;
 }) {
   let { showToast } = useToast();
-  const [nodes, _, onNodesChange] = useNodesState([]);
-  const [edges, __, onEdgesChange] = useEdgesState([]);
+  const [nodes, setNodes, onNodesChange] = useNodesState([]);
+  const [edges, setEdges, onEdgesChange] = useEdgesState([]);
   const [rfInstance, setRfInstance] = useState(null);
+  const [delKey, setDelKey] = useState<string>("");
 
   const { status, data: session } = useSession();
   const refFlow = useReactFlow();
@@ -50,8 +54,13 @@ export default function HistoryChart({
   const onNodeClick = useCallback(
     (_: MouseEvent, node: Node) => {
       handleSelect(node);
+      if (node.type == "reactionNode") {
+        setDelKey("Delete");
+      } else {
+        setDelKey("");
+      }
     },
-    [handleSelect],
+    [handleSelect, setDelKey],
   );
   const onSave = useCallback(async () => {
     if (!session) return;
@@ -94,6 +103,43 @@ export default function HistoryChart({
     if (refFlow !== null) onRestore(content);
   }, [refFlow, content]);
 
+  const onNodesDelete = useCallback(
+    (deleted: any) => {
+      handleSelect(null);
+      let incomes = deleted;
+      let removeNodes: Node[] = [];
+      let removeNodeIds: string[] = [];
+      let preNode = getOutgoers(deleted[0], nodes, edges)[0];
+      while (incomes.length > 0) {
+        let firtIncome = incomes.shift();
+        removeNodes.push(firtIncome!);
+        removeNodeIds.push(firtIncome!.id);
+        let newIncomers = getIncomers(firtIncome!, nodes, edges);
+        if (newIncomers.length > 0) incomes = incomes.concat(newIncomers);
+      }
+      //@ts-ignore-next-line
+      const connectedEdges = getConnectedEdges(removeNodes, edges);
+      const remainingEdges = edges.filter(
+        (edge) => !connectedEdges.includes(edge),
+      );
+      let remainingNodes = nodes.filter(
+        (node) => !removeNodeIds.includes(node.id),
+      );
+
+      remainingNodes = remainingNodes.map((node) => {
+        if (node.id === preNode.id) {
+          node.data = { ...node.data, isLeaf: true };
+        }
+        return node;
+      });
+
+      setEdges(remainingEdges);
+      setNodes(remainingNodes);
+      setDelKey("");
+    },
+    [nodes, edges, setNodes, setEdges, handleSelect],
+  );
+
   return (
     <Flex className="w-full h-full">
       <ReactFlow
@@ -105,6 +151,8 @@ export default function HistoryChart({
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         proOptions={{ hideAttribution: true }}
+        onNodesDelete={onNodesDelete}
+        deleteKeyCode={delKey}
         // @ts-ignore-next-line
         onInit={setRfInstance}
         fitView

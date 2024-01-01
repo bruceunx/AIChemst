@@ -6,12 +6,13 @@ import ReactFlow, {
   MarkerType,
   Node,
   Panel,
+  useReactFlow,
 } from "reactflow";
 import "reactflow/dist/style.css";
 
 import ReactionNode from "./ReactionNode";
 import ChemNode from "./ChemNode";
-import { useCallback, MouseEvent, useState } from "react";
+import { useCallback, MouseEvent, useState, useEffect } from "react";
 import Analyzer from "@/utils/synthesis";
 import { useToast } from "./CustomToast";
 import { useSession } from "next-auth/react";
@@ -31,10 +32,12 @@ const defaultEdgeOptions = {
   },
 };
 
-export default function Chart({
+export default function HistoryChart({
   handleSelect,
+  content,
 }: {
   handleSelect: (node: Node) => void;
+  content: string;
 }) {
   let { showToast } = useToast();
   const [nodes, _, onNodesChange] = useNodesState([]);
@@ -42,6 +45,7 @@ export default function Chart({
   const [rfInstance, setRfInstance] = useState(null);
 
   const { status, data: session } = useSession();
+  const refFlow = useReactFlow();
 
   const onNodeClick = useCallback(
     (_: MouseEvent, node: Node) => {
@@ -59,7 +63,7 @@ export default function Chart({
       const target = analysis.getNodeLink().smiles; // get target smiles
       // @ts-ignore-next-line
       const res = await saveRoute(session.accessToken, target, content);
-      if (res === 0) showToast("反应路线保存成功");
+      if (res === 0) showToast("反应路线保存成功!");
     }
   }, [rfInstance, showToast, session]);
 
@@ -72,6 +76,23 @@ export default function Chart({
       // upload to api and get pdf
     }
   }, [rfInstance]);
+
+  useEffect(() => {
+    const onRestore = (content: string) => {
+      const restoreFlow = async (content: string) => {
+        if (refFlow === null) return;
+        const flow = JSON.parse(content);
+        if (flow) {
+          const { x = 0, y = 0, zoom = 1 } = flow.viewport;
+          refFlow.setNodes(flow.nodes || []);
+          refFlow.setEdges(flow.edges || []);
+          refFlow.setViewport({ x, y, zoom });
+        }
+      };
+      restoreFlow(content);
+    };
+    if (refFlow !== null) onRestore(content);
+  }, [refFlow, content]);
 
   return (
     <Flex className="w-full h-full">

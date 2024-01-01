@@ -1,9 +1,9 @@
-import { Table, Link } from "@radix-ui/themes";
+import { Table, Link, Button } from "@radix-ui/themes";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { getChemicalSVG } from "@/utils/api";
 
-const SingleRoute: React.FC<any> = ({ route }) => {
+const SingleRoute: React.FC<any> = ({ route, onDelete }) => {
   const [target, setTarget] = useState<string | null>(null);
 
   useEffect(() => {
@@ -22,7 +22,7 @@ const SingleRoute: React.FC<any> = ({ route }) => {
       <Table.RowHeaderCell>{route.id}</Table.RowHeaderCell>
       <Table.Cell>{route.time_stamp.substring(0, 10)}</Table.Cell>
       <Table.Cell>
-        <Link href="/history/1">
+        <Link href={`/history/${route.id}`}>
           {target && (
             <Image
               src={target}
@@ -35,7 +35,7 @@ const SingleRoute: React.FC<any> = ({ route }) => {
         </Link>
       </Table.Cell>
       <Table.Cell>
-        <Link>删除</Link>
+        <Button onClick={() => onDelete(route.id)}>删除</Button>
       </Table.Cell>
     </Table.Row>
   );

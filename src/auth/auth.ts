@@ -3,9 +3,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { getUserToken } from "@/utils/api";
 
 export const authOptions: NextAuthOptions = {
-  session: {
-    strategy: "jwt",
-  },
+  secret: process.env.NEXT_AUTH_SECRET,
   providers: [
     CredentialsProvider({
       name: "credentials",

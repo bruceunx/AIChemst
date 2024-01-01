@@ -1,11 +1,12 @@
 "use client";
 
-import SingleRoute from "@/components/SingleRoute";
-import { getHistoryRoutes } from "@/utils/api";
+import { useEffect, useState } from "react";
+import { redirect } from "next/navigation";
 import { Table, Flex, Text } from "@radix-ui/themes";
 import { useSession } from "next-auth/react";
-import { redirect } from "next/navigation";
-import { useEffect, useState } from "react";
+
+import SingleRoute from "@/components/SingleRoute";
+import { deleteHistoryRoute, getHistoryRoutes } from "@/utils/api";
 
 type Route = {
   id: number;
@@ -31,6 +32,16 @@ export default function History() {
     if (session) getData();
   }, [session]);
 
+  const onDelete = async (id: number) => {
+    // @ts-ignore
+    const res = await deleteHistoryRoute(session.accessToken, id);
+    if (res === 0) {
+      const newRoutes = routes.filter((route) => route.id !== id);
+      console.log(newRoutes);
+      setRoutes(newRoutes);
+    }
+  };
+
   if (status === "loading") {
     return (
       <Flex className="m-auto">
@@ -53,8 +64,8 @@ export default function History() {
 
         <Table.Body>
           {routes &&
-            routes.map((route, index) => (
-              <SingleRoute route={route} key={index} />
+            routes.map((route) => (
+              <SingleRoute route={route} onDelete={onDelete} key={route.id} />
             ))}
         </Table.Body>
       </Table.Root>

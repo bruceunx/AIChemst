@@ -39,6 +39,66 @@ export const getHistoryRoutes = async (token: string) => {
   }
 };
 
+export const getHistoryRoute = async (token:string, id: string) => {
+  try {
+    const url = `${testAPI}/synthesis/get_route/${id}`;
+    const res = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (res.status === 200) {
+      return res.data.route;
+    } else {
+      return null
+    }
+  } catch (err) {
+    return null
+  }
+};
+
+export const deleteHistoryRoute = async (token:string, id: number) => {
+  try {
+    const url = `${testAPI}/synthesis/del_route/${id}`;
+    const res = await axios.delete(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (res.status === 200) {
+      return 0;
+    } else {
+      return -1
+    }
+  } catch (err) {
+    return -1
+  }
+};
+
+export const saveRoute = async (
+  token: string,
+  target: string,
+  content: string,
+) => {
+  try {
+    const url = `${testAPI}/synthesis/save_route`;
+    const data = { target: target, content: content };
+    console.log(token);
+    const res = await axios.post(url, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (res.status === 201) {
+      return 0;
+    } else {
+      return -1;
+    }
+  } catch (err) {
+    return -1;
+  }
+};
+
 export const findSmiles = async (input: string) => {
   try {
     const url = `${API}/product/name2smiles`;

@@ -50,7 +50,8 @@ export default function Chart({
       // @ts-ignore-next-line
       const flow = rfInstance.toObject();
       const analysis = new Analyzer(flow);
-      console.log(JSON.stringify(analysis.getNodeLink()));
+      console.log(JSON.stringify(flow)) // content
+      console.log(analysis.getNodeLink().smiles) // get target smiles
       showToast("result saved!");
       // upload to api and get notifications
     }

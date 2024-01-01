@@ -1,5 +1,6 @@
 import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { getUserToken } from "@/utils/api";
 
 export const authOptions: NextAuthOptions = {
   session: {
@@ -7,20 +8,49 @@ export const authOptions: NextAuthOptions = {
   },
   providers: [
     CredentialsProvider({
-      name: "Sign in",
+      name: "credentials",
       credentials: {
-        email: {
-          label: "email",
-          type: "email",
-          placeholder: "example@example.com",
-        },
+        username: { label: "username", type: "text" },
         password: { label: "password", type: "password" },
       },
+      // @ts-ignore
       async authorize(credentials: any) {
-        console.log(credentials);
-        const user = { id: "1", name: "Admin", email: "admin@admin.com" };
+        const token = await getUserToken(
+          credentials.username,
+          credentials.password,
+        );
+        if (token === null) {
+          return null;
+        }
+        const user = {
+          id: 1,
+          name: credentials.username,
+        };
         return user;
       },
     }),
   ],
+  callbacks: {
+    async signIn({ account, credentials }) {
+      const token = await getUserToken(
+        // @ts-ignore
+        credentials.username,
+        // @ts-ignore
+        credentials.password,
+      );
+      account!.access_token = token;
+      return true;
+    },
+    async jwt({ token, account }) {
+      if (account) {
+        token.accessToken = account.access_token;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      // @ts-ignore
+      session.accessToken = token.accessToken;
+      return session;
+    },
+  },
 };

@@ -2,6 +2,42 @@ import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 
 const API = "https://apichem.pylogic.net/v1";
+const testAPI = "http://127.0.0.1:8000/v1";
+
+export const getUserToken = async (username: string, password: string) => {
+  try {
+    const url = `${testAPI}/user/token`;
+    const form = new FormData();
+    form.append("username", username);
+    form.append("password", password);
+    const res = await axios.post(url, form);
+    if (res.status === 200) {
+      return res.data.access_token;
+    } else {
+      return null;
+    }
+  } catch (err) {
+    return null;
+  }
+};
+
+export const getHistoryRoutes = async (token: string) => {
+  try {
+    const url = `${testAPI}/synthesis/get_routes`;
+    const res = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (res.status === 200) {
+      return res.data.routes;
+    } else {
+      return [];
+    }
+  } catch (err) {
+    return [];
+  }
+};
 
 export const findSmiles = async (input: string) => {
   try {

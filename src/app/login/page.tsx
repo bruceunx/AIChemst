@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 
 type FormInput = {
-  email: string;
+  username: string;
   password: string;
 };
 
@@ -20,17 +20,16 @@ export default function Profile() {
 
   //eslint-disable-next-line
   const onSubmit = async (values: any) => {
-    console.log(values)
     const res = await signIn("credentials", {
       redirect: false,
-      email: "user",
-      password: "password",
-      callbackUrl:"/profile",
+      username: values.username,
+      password: values.password,
+      callbackUrl: "/profile",
     });
     if (!res?.error) {
       router.push("/profile");
     } else {
-      console.log("error")
+      console.log("error");
     }
   };
 
@@ -51,23 +50,23 @@ export default function Profile() {
           pb="3"
         >
           <Flex direction="row" gap="3">
-            <label htmlFor="email">邮 箱:</label>
+            <label htmlFor="username" className="w-14">用户名:</label>
             <TextField.Input
-              type="email"
-              id="email"
-              {...register("email", {
+              type="text"
+              id="username"
+              {...register("username", {
                 required: "必须要有",
               })}
-              placeholder="输入邮箱"
+              placeholder="输入用户名"
             />
           </Flex>
-          {errors.email && (
+          {errors.username && (
             <Text size="1" color="red">
-              {errors.email.message}
+              {errors.username.message}
             </Text>
           )}
           <Flex direction="row" gap="3">
-            <label htmlFor="password">密 码:</label>
+            <label htmlFor="password" className="w-14">密码:</label>
             <TextField.Input
               id="password"
               {...register("password", {

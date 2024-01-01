@@ -1,16 +1,35 @@
 "use client";
 
-import { Table, Flex, Link, Text } from "@radix-ui/themes";
+import SingleRoute from "@/components/SingleRoute";
+import { getHistoryRoutes } from "@/utils/api";
+import { Table, Flex, Text } from "@radix-ui/themes";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
+import { useEffect, useState } from "react";
+
+type Route = {
+  id: number;
+  time_stamp: string;
+  target: string;
+};
 
 export default function History() {
-  const { status } = useSession({
+  const [routes, setRoutes] = useState<Route[]>([]);
+  const { status, data: session } = useSession({
     required: true,
     onUnauthenticated() {
       redirect("/login");
     },
   });
+
+  useEffect(() => {
+    const getData = async () => {
+      // @ts-ignore
+      const routes = await getHistoryRoutes(session.accessToken);
+      setRoutes(routes);
+    };
+    if (session) getData();
+  }, [session]);
 
   if (status === "loading") {
     return (
@@ -19,6 +38,7 @@ export default function History() {
       </Flex>
     );
   }
+
   return (
     <Flex p="7" className="w-1/2 mx-auto">
       <Table.Root variant="surface" className="w-full">
@@ -32,38 +52,10 @@ export default function History() {
         </Table.Header>
 
         <Table.Body>
-          <Table.Row>
-            <Table.RowHeaderCell>1</Table.RowHeaderCell>
-            <Table.Cell>2023-12-01</Table.Cell>
-            <Table.Cell>
-              <Link href="/history/1">C1CCC</Link>
-            </Table.Cell>
-            <Table.Cell>
-              <Link>删除</Link>
-            </Table.Cell>
-          </Table.Row>
-
-          <Table.Row>
-            <Table.RowHeaderCell>2</Table.RowHeaderCell>
-            <Table.Cell>2023-12-01</Table.Cell>
-            <Table.Cell>
-              <Link href="/history/2">C1CCC</Link>
-            </Table.Cell>
-            <Table.Cell>
-              <Link>删除</Link>
-            </Table.Cell>
-          </Table.Row>
-
-          <Table.Row>
-            <Table.RowHeaderCell>3</Table.RowHeaderCell>
-            <Table.Cell>2023-12-01</Table.Cell>
-            <Table.Cell>
-              <Link href="/history/3">C1CCC</Link>
-            </Table.Cell>
-            <Table.Cell>
-              <Link>删除</Link>
-            </Table.Cell>
-          </Table.Row>
+          {routes &&
+            routes.map((route, index) => (
+              <SingleRoute route={route} key={index} />
+            ))}
         </Table.Body>
       </Table.Root>
     </Flex>

@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { getChemicalSVG } from "@/utils/api";
 
 const Condition: React.FC<any> = ({ condition, idx }) => {
-  console.log(condition);
   const [reagent, setReagent] = useState<string | null>(null);
   const [solvent, setSolvent] = useState<string | null>(null);
   const [catalyst, setCatalyst] = useState<string | null>(null);

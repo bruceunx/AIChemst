@@ -17,7 +17,7 @@ const ToastContext = createContext<{
 }>({
   showToast: () => {
     throw new Error(
-      "You can't call showToast() outside of a <ToastProvider> – add it to your tree."
+      "You can't call showToast() outside of a <ToastProvider> – add it to your tree.",
     );
   },
 });

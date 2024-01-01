@@ -35,7 +35,9 @@ const SingleRoute: React.FC<any> = ({ route, onDelete }) => {
         </Link>
       </Table.Cell>
       <Table.Cell>
-        <Button onClick={() => onDelete(route.id)}>删除</Button>
+        <Button color="red" onClick={() => onDelete(route.id)}>
+          删除
+        </Button>
       </Table.Cell>
     </Table.Row>
   );

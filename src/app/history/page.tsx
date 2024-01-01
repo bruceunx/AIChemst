@@ -51,8 +51,8 @@ export default function History() {
   }
 
   return (
-    <Flex p="7" className="w-1/2 mx-auto">
-      <Table.Root variant="surface" className="w-full">
+    <Flex p="7" className="w-3/4 mx-auto h-full py-7">
+      <Table.Root variant="surface" className="w-full overflow-y-scroll">
         <Table.Header>
           <Table.Row>
             <Table.ColumnHeaderCell>序号</Table.ColumnHeaderCell>

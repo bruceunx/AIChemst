@@ -44,6 +44,17 @@ export default function Nav() {
         >
           历史查询
         </Link>
+        <Link
+          href="/help"
+          className={`no-underline w-full rounded-full ${
+            pathname === "/help"
+              ? "bg-blue-500 text-white"
+              : "hover:bg-gray-500"
+          } text-center p-2 hover:text-white `}
+          size="2"
+        >
+          帮助说明
+        </Link>
       </Flex>
       <Flex direction="column">
         <Text size="1" color="ruby">

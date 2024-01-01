@@ -67,6 +67,7 @@ export default function Search({
           <MagnifyingGlassIcon height='16' width='16' />
         </TextField.Slot>
         <TextField.Input
+          className="outline-none"
           placeholder='输入产品名称或者SMILES来查询'
           value={input}
           onChange={(e) => {

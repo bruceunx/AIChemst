@@ -59,7 +59,11 @@ const RouteDetail: React.FC<RouteProps> = ({
         setTemperature(condition.temperature);
       }
     };
-    if (currentNode) {
+    setTemperature(null);
+    setReagent(null);
+    setSolvent(null);
+    setCatalyst(null);
+    if (currentNode.data.detail !== undefined) {
       try {
         let condition = JSON.parse(currentNode.data.detail);
         updateSvg(condition);
@@ -102,6 +106,10 @@ const RouteDetail: React.FC<RouteProps> = ({
         setTemperature(condition.temperature);
       }
     };
+    setTemperature(null);
+    setReagent(null);
+    setSolvent(null);
+    setCatalyst(null);
     if (Object.keys(selectCondition).length > 0) {
       try {
         updateSvg(selectCondition);

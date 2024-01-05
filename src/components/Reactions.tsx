@@ -72,7 +72,7 @@ const Reactions: React.FC<any> = ({ routes, currentNode }) => {
     );
 
     const route = routes[value];
-    const reactants = route.reactants.split(".");
+    const reactants = route.outcome.split(".");
 
     const newChemNodes = [];
 
@@ -90,7 +90,7 @@ const Reactions: React.FC<any> = ({ routes, currentNode }) => {
       type: "reactionNode",
       data: {
         condition: "#R",
-        reactants: route.reactants,
+        reactants: route.outcome,
         product: currentNode.data.smiles,
       },
       position: {

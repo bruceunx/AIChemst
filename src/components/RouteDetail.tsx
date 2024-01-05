@@ -15,6 +15,7 @@ const RouteDetail: React.FC<RouteProps> = ({
   const [reagent, setReagent] = useState<string | null>(null);
   const [solvent, setSolvent] = useState<string | null>(null);
   const [catalyst, setCatalyst] = useState<string | null>(null);
+  const [temperature, setTemperature] = useState<number | null>(null);
 
   const onClick = async () => {
     setError(false);
@@ -53,6 +54,9 @@ const RouteDetail: React.FC<RouteProps> = ({
           const svgUrl = `data:image/svg+xml,${encodeURIComponent(res)}`;
           setCatalyst(svgUrl);
         }
+      }
+      if (condition.temperature !== null) {
+        setTemperature(condition.temperature);
       }
     };
     if (currentNode) {
@@ -94,6 +98,9 @@ const RouteDetail: React.FC<RouteProps> = ({
       } else {
         setCatalyst(null);
       }
+      if (condition.temperature !== null) {
+        setTemperature(condition.temperature);
+      }
     };
     if (Object.keys(selectCondition).length > 0) {
       try {
@@ -106,60 +113,58 @@ const RouteDetail: React.FC<RouteProps> = ({
 
   return (
     <>
-      <Heading align='center' className='py-2'>反应条件筛选</Heading>
-
-        <Flex direction="column" gap="2" py='4' align="start" justify="start">
-          <Flex direction="row" gap="2">
-            <Text className="w-20">反应试剂:</Text>
-            {reagent && (
-              <Image
-                src={reagent}
-                alt="reagent"
-                width={70}
-                height={70}
-                className="bg-white rounded-md p-2"
-              />
-            )}
-          </Flex>
-          <Flex direction="row" gap="2">
-            <Text className="w-20">反应溶剂:</Text>
-            {solvent && (
-              <Image
-                src={solvent}
-                alt="solvent"
-                width={70}
-                height={70}
-                className="bg-white rounded-md p-2"
-              />
-            )}
-          </Flex>
-          <Flex direction="row" gap="2">
-            <Text className="w-20">催化剂:</Text>
-            {catalyst && (
-              <Image
-                src={catalyst}
-                alt="catalyst"
-                width={70}
-                height={70}
-                className="bg-white rounded-md p-2"
-              />
-            )}
-          </Flex>
-          <Text>
-            反应温度: &nbsp;{" "}
-            {JSON.parse(currentNode.data.detail).temperature.toFixed(1)}℃
-          </Text>
+      <Heading align="center" className="py-2">
+        反应条件筛选
+      </Heading>
+      <Flex direction="column" gap="2" py="4" align="start" justify="start">
+        <Flex direction="row" gap="2">
+          <Text className="w-20">反应试剂:</Text>
+          {reagent && (
+            <Image
+              src={reagent}
+              alt="reagent"
+              width={70}
+              height={70}
+              className="bg-white rounded-md p-2"
+            />
+          )}
         </Flex>
-      ) : (
-        <Button
-          radius="full"
-          className="hover:cursor-pointer"
-          variant="outline"
-          onClick={onClick}
-        >
-          {text}
-        </Button>
-
+        <Flex direction="row" gap="2">
+          <Text className="w-20">反应溶剂:</Text>
+          {solvent && (
+            <Image
+              src={solvent}
+              alt="solvent"
+              width={70}
+              height={70}
+              className="bg-white rounded-md p-2"
+            />
+          )}
+        </Flex>
+        <Flex direction="row" gap="2">
+          <Text className="w-20">催化剂:</Text>
+          {catalyst && (
+            <Image
+              src={catalyst}
+              alt="catalyst"
+              width={70}
+              height={70}
+              className="bg-white rounded-md p-2"
+            />
+          )}
+        </Flex>
+        <Text>
+          反应温度: &nbsp; {temperature && `${temperature.toFixed(1)}℃ `}
+        </Text>
+      </Flex>
+      <Button
+        radius="full"
+        className="hover:cursor-pointer"
+        variant="outline"
+        onClick={onClick}
+      >
+        {text}
+      </Button>
       {error && (
         <Text size="1" color="red">
           无法获取条件:( 可以再次尝试获取

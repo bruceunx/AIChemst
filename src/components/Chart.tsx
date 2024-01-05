@@ -10,6 +10,7 @@ import ReactFlow, {
   getConnectedEdges,
 } from "reactflow";
 import "reactflow/dist/style.css";
+import "@/style/flow.css";
 
 import ReactionNode from "./ReactionNode";
 import ChemNode from "./ChemNode";

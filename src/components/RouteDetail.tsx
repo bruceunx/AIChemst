@@ -125,7 +125,7 @@ const RouteDetail: React.FC<RouteProps> = ({
               alt="reagent"
               width={70}
               height={70}
-              className="bg-white rounded-md p-2"
+              className="bg-green-200 rounded-md p-2"
             />
           )}
         </Flex>
@@ -149,7 +149,7 @@ const RouteDetail: React.FC<RouteProps> = ({
               alt="catalyst"
               width={70}
               height={70}
-              className="bg-white rounded-md p-2"
+              className="bg-yellow-200 rounded-md p-2"
             />
           )}
         </Flex>

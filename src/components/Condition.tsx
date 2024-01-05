@@ -45,7 +45,7 @@ const Condition: React.FC<any> = ({ condition, idx }) => {
             alt="reagent"
             width={70}
             height={70}
-            className="bg-white rounded-full p-2"
+            className="bg-green-200 rounded-full p-2"
           />
         )}
       </Table.Cell>
@@ -67,7 +67,7 @@ const Condition: React.FC<any> = ({ condition, idx }) => {
             alt="catalyst"
             width={70}
             height={70}
-            className="bg-white rounded-full p-2"
+            className="bg-yellow-200 rounded-full p-2"
           />
         )}
       </Table.Cell>

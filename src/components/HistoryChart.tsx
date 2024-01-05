@@ -9,7 +9,6 @@ import ReactFlow, {
   useReactFlow,
   getIncomers,
   getConnectedEdges,
-  getOutgoers,
 } from "reactflow";
 import "reactflow/dist/style.css";
 
@@ -109,7 +108,6 @@ export default function HistoryChart({
       let incomes = deleted;
       let removeNodes: Node[] = [];
       let removeNodeIds: string[] = [];
-      let preNode = getOutgoers(deleted[0], nodes, edges)[0];
       while (incomes.length > 0) {
         let firtIncome = incomes.shift();
         removeNodes.push(firtIncome!);
@@ -125,13 +123,6 @@ export default function HistoryChart({
       let remainingNodes = nodes.filter(
         (node) => !removeNodeIds.includes(node.id),
       );
-
-      remainingNodes = remainingNodes.map((node) => {
-        if (node.id === preNode.id) {
-          node.data = { ...node.data, isLeaf: true };
-        }
-        return node;
-      });
 
       setEdges(remainingEdges);
       setNodes(remainingNodes);

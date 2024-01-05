@@ -108,7 +108,6 @@ const RouteDetail: React.FC<RouteProps> = ({
     <>
       <Heading align='center' className='py-2'>反应条件筛选</Heading>
 
-      {currentNode.data.detail ? (
         <Flex direction="column" gap="2" py='4' align="start" justify="start">
           <Flex direction="row" gap="2">
             <Text className="w-20">反应试剂:</Text>
@@ -160,51 +159,7 @@ const RouteDetail: React.FC<RouteProps> = ({
         >
           {text}
         </Button>
-      )}
 
-      {Boolean(Object.keys(selectCondition).length) && (
-        <Flex direction="column" gap="2" py='4' align="start" justify="start">
-          <Flex direction="row" gap="2">
-            <Text className="w-20">反应试剂:</Text>
-            {reagent && (
-              <Image
-                src={reagent}
-                alt="reagent"
-                width={70}
-                height={70}
-                className="bg-white rounded-md p-2"
-              />
-            )}
-          </Flex>
-          <Flex direction="row" gap="2">
-            <Text className="w-20">反应溶剂:</Text>
-            {solvent && (
-              <Image
-                src={solvent}
-                alt="solvent"
-                width={70}
-                height={70}
-                className="bg-white rounded-md p-2"
-              />
-            )}
-          </Flex>
-          <Flex direction="row" gap="2">
-            <Text className="w-20">催化剂:</Text>
-            {catalyst && (
-              <Image
-                src={catalyst}
-                alt="catalyst"
-                width={70}
-                height={70}
-                className="bg-white rounded-md p-2"
-              />
-            )}
-          </Flex>
-          <Text>
-            反应温度: &nbsp; {selectCondition.temperature.toFixed(1)}℃
-          </Text>
-        </Flex>
-      )}
       {error && (
         <Text size="1" color="red">
           无法获取条件:( 可以再次尝试获取

@@ -4,13 +4,10 @@ import { Button, Text } from "@radix-ui/themes";
 import { NodeProps } from "@/types";
 import { useState } from "react";
 import { findRoutes } from "../utils/api";
-import { useReactFlow } from "reactflow";
 
 const NodeDetail: React.FC<NodeProps> = ({ currentNode, setRoutes }) => {
   const [text, setText] = useState<string>("开始AI设计");
   const [error, setError] = useState<boolean>(false);
-
-  const { setNodes } = useReactFlow();
 
   const onClick = async () => {
     setText("正在设计中...");
@@ -21,17 +18,7 @@ const NodeDetail: React.FC<NodeProps> = ({ currentNode, setRoutes }) => {
       setError(true);
     } else {
       setRoutes(routes);
-
-      setNodes((nodes) =>
-        nodes.map((node) => {
-          if (node.id === currentNode.id) {
-            node.data = { ...node.data, isLeaf: false };
-          }
-          return node;
-        }),
-      );
     }
-
     setText("开始AI设计");
   };
 

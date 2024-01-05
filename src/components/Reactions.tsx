@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Flex, RadioGroup, Table } from "@radix-ui/themes";
 import Reaction from "./Reaction";
-import { useReactFlow } from "reactflow";
+import { useReactFlow, getConnectedEdges, getIncomers, Node } from "reactflow";
 import { getChemicalSVG } from "../utils/api";
 
 const Reactions: React.FC<any> = ({ routes, currentNode }) => {
   const [defaultValue, setDefaultValue] = useState<string>("0");
-  const [tempNodes, setTempNodes] = useState<any[]>([]);
-  const [tempEdges, setTempEdges] = useState<any[]>([]);
 
-  const { addEdges, addNodes, setEdges, setNodes, fitView } = useReactFlow();
+  const { getEdges, getNodes, setEdges, setNodes, fitView } = useReactFlow();
 
   const generateNode = async (smiles: string, idx: number, value: number) => {
     const svg = await getChemicalSVG(smiles);
@@ -47,43 +45,52 @@ const Reactions: React.FC<any> = ({ routes, currentNode }) => {
   };
 
   useEffect(() => {
-    setTempNodes([]);
-    setTempEdges([]);
     setDefaultValue("0");
   }, [currentNode]);
 
   const onChange = async (value: string) => {
-    if (Number.parseInt(value) < 0) return;
     setDefaultValue(value);
+    if (Number.parseInt(value) < 0) return;
 
-    if (tempNodes.length > 0) {
-      setNodes((nodes) => nodes.filter((node) => !tempNodes.includes(node.id)));
+    // remove old nodes and old edges
+    const nodes = getNodes();
+    const edges = getEdges();
+    const removeNodes: Node[] = [];
+    const removeNodeIds: string[] = [];
+    let incomes = getIncomers(currentNode, nodes, edges);
+    while (incomes.length > 0) {
+      const firtIncome = incomes.shift();
+      removeNodes.push(firtIncome!);
+      removeNodeIds.push(firtIncome!.id);
+      const newIncomers = getIncomers(firtIncome!, nodes, edges);
+      if (newIncomers.length > 0) incomes = incomes.concat(newIncomers);
     }
-    if (tempEdges.length > 0) {
-      setEdges((edges) => edges.filter((edge) => !tempEdges.includes(edge.id)));
-    }
-
-    setTempNodes([]);
-    setTempEdges([]);
+    const connectedEdges = getConnectedEdges(removeNodes, edges);
+    let remainingEdges = edges.filter((edge) => !connectedEdges.includes(edge));
+    let remainingNodes = nodes.filter(
+      (node) => !removeNodeIds.includes(node.id),
+    );
 
     const route = routes[value];
-    const reactants = route.outcome.split(".");
+    const reactants = route.reactants.split(".");
 
-    let newChemNodes = [];
+    const newChemNodes = [];
 
     for (let i = 0; i < reactants.length; i++) {
-      let node = await generateNode(reactants[i], i, Number.parseInt(value));
+      const node = await generateNode(reactants[i], i, Number.parseInt(value));
       if (node !== null) {
+        // eslint-disable-next-line
+        // @ts-ignore
         newChemNodes.push(node);
       }
     }
 
-    let newReactionNode = {
+    const newReactionNode = {
       id: `reactionNode_${currentNode.id}`,
       type: "reactionNode",
       data: {
         condition: "#R",
-        reactants: route.outcome,
+        reactants: route.reactants,
         product: currentNode.data.smiles,
       },
       position: {
@@ -92,7 +99,7 @@ const Reactions: React.FC<any> = ({ routes, currentNode }) => {
       },
     };
 
-    let newEdges = newChemNodes.map((chemNode: any) =>
+    const newEdges = newChemNodes.map((chemNode: Node) =>
       generateEdge(chemNode, newReactionNode),
     );
     newEdges.push({
@@ -102,12 +109,15 @@ const Reactions: React.FC<any> = ({ routes, currentNode }) => {
       type: "smoothstep",
     });
 
+    // eslint-disable-next-line
+    // @ts-ignore
     newChemNodes.push(newReactionNode);
-    setTempNodes(newChemNodes.map((node) => node.id));
-    setTempEdges(newEdges.map((edge) => edge.id));
 
-    addNodes(newChemNodes);
-    addEdges(newEdges);
+    remainingEdges = remainingEdges.concat(newEdges);
+    remainingNodes = remainingNodes.concat(newChemNodes);
+
+    setEdges(remainingEdges);
+    setNodes(remainingNodes);
 
     function sleep(milliseconds: number) {
       return new Promise((resolve) => setTimeout(resolve, milliseconds));

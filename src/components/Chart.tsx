@@ -8,7 +8,6 @@ import ReactFlow, {
   Panel,
   getIncomers,
   getConnectedEdges,
-  getOutgoers,
 } from "reactflow";
 import "reactflow/dist/style.css";
 
@@ -72,23 +71,12 @@ export default function Chart({
     }
   }, [rfInstance, showToast, session]);
 
-  const onExport = useCallback(() => {
-    if (rfInstance) {
-      // @ts-ignore-next-line
-      const flow = rfInstance.toObject();
-      const analysis = new Analyzer(flow);
-      console.log(JSON.stringify(analysis.getNodeLink()));
-      // upload to api and get pdf
-    }
-  }, [rfInstance]);
-
   const onNodesDelete = useCallback(
     (deleted: any) => {
       handleSelect(null);
       let incomes = deleted;
       let removeNodes: Node[] = [];
       let removeNodeIds: string[] = [];
-      let preNode = getOutgoers(deleted[0], nodes, edges)[0];
       while (incomes.length > 0) {
         let firtIncome = incomes.shift();
         removeNodes.push(firtIncome!);
@@ -104,13 +92,6 @@ export default function Chart({
       let remainingNodes = nodes.filter(
         (node) => !removeNodeIds.includes(node.id),
       );
-
-      remainingNodes = remainingNodes.map((node) => {
-        if (node.id === preNode.id) {
-          node.data = { ...node.data, isLeaf: true };
-        }
-        return node;
-      });
 
       setEdges(remainingEdges);
       setNodes(remainingNodes);
@@ -143,9 +124,6 @@ export default function Chart({
               保存
             </Button>
           )}
-          <Button variant="outline" color="indigo" onClick={onExport}>
-            导出
-          </Button>
         </Panel>
       </ReactFlow>
     </Flex>

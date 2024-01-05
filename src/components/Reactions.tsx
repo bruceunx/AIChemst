@@ -1,18 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Flex, RadioGroup, Table } from "@radix-ui/themes";
 import Reaction from "./Reaction";
-import { useReactFlow, useNodes, Node } from "reactflow";
+import { useReactFlow } from "reactflow";
 import { getChemicalSVG } from "../utils/api";
 
 const Reactions: React.FC<any> = ({ routes, currentNode }) => {
-  var idx = 0;
-
   const [defaultValue, setDefaultValue] = useState<string>("0");
   const [tempNodes, setTempNodes] = useState<any[]>([]);
   const [tempEdges, setTempEdges] = useState<any[]>([]);
 
   const { addEdges, addNodes, setEdges, setNodes, fitView } = useReactFlow();
-  const nodes = useNodes();
 
   const generateNode = async (smiles: string, idx: number, value: number) => {
     const svg = await getChemicalSVG(smiles);
@@ -20,9 +17,12 @@ const Reactions: React.FC<any> = ({ routes, currentNode }) => {
       return null;
     } else {
       const svgUrl = `data:image/svg+xml,${encodeURIComponent(svg)}`;
-
       let _id = `chemNode_${currentNode.id}_${idx}_${value}`;
-      if (idx % 2 === 1) idx *= -1;
+      if (idx % 2 === 1) {
+        idx = (idx + 1) / -2;
+      } else {
+        idx = idx / 2;
+      }
       const offsetY = 100 * idx;
       return {
         id: _id,
@@ -53,9 +53,8 @@ const Reactions: React.FC<any> = ({ routes, currentNode }) => {
   }, [currentNode]);
 
   const onChange = async (value: string) => {
+    if (Number.parseInt(value) < 0) return;
     setDefaultValue(value);
-
-    idx = 0;
 
     if (tempNodes.length > 0) {
       setNodes((nodes) => nodes.filter((node) => !tempNodes.includes(node.id)));

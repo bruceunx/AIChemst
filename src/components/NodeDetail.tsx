@@ -24,6 +24,7 @@ const NodeDetail: React.FC<NodeProps> = ({ currentNode, setRoutes }) => {
 
   return (
     <>
+      <Text>SMILES: {currentNode.data.smiles}</Text>
       <Image
         src={currentNode.data.imgUrl}
         alt="currentNode"

@@ -1,4 +1,5 @@
 import { Flex, Heading, Text } from "@radix-ui/themes";
+import Image from "next/image";
 
 const Help = () => {
   return (
@@ -18,6 +19,30 @@ const Help = () => {
         </Text>
         <Text>7 多使用几次，就熟悉了:)</Text>
       </Flex>
+      <Heading align="center">离线单机版AIChemist</Heading>
+
+      <Flex
+        align="center"
+        justify="center"
+        direction="row"
+        width="100%"
+        gap="5"
+        mb="7"
+      >
+        <Image
+          src="/Screenshot1.png"
+          alt="aichemist"
+          width="600"
+          height="500"
+        />
+        <Image
+          src="/Screenshot2.png"
+          alt="aichemist"
+          width="600"
+          height="500"
+        />
+      </Flex>
+      <Text>联系邮箱发送软件(1G): bruceunx@outlook.com</Text>
     </Flex>
   );
 };

@@ -19,7 +19,7 @@ const Help = () => {
         </Text>
         <Text>7 多使用几次，就熟悉了:)</Text>
       </Flex>
-      <Heading align="center">离线单机版AIChemist</Heading>
+      <Heading align="center">离线单机版AIChemist(windows)</Heading>
 
       <Flex
         align="center"

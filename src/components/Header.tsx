@@ -24,7 +24,7 @@ export default function Header() {
       top="0"
     >
       <Heading size="5" align="center" color="gray" className="pl-5">
-        AI Retrosynthesis
+        AIChemist
       </Heading>
 
       <Flex gap="1">

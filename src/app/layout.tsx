@@ -10,8 +10,8 @@ import Script from "next/script";
 import { NextAuthProvider } from "./provider";
 
 export const metadata: Metadata = {
-  title: "AI辅助合成设计",
-  description: "AI辅助合成设计",
+  title: "AIChemist",
+  description: "AI 合成设计，AI提供合成路线，提供反应条件, retrosynthesis",
 };
 
 export default function RootLayout({

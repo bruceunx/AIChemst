@@ -1,39 +1,40 @@
-import { Button, Dialog, Flex } from '@radix-ui/themes'
-import { StandaloneStructServiceProvider } from 'ketcher-standalone'
-import { Editor } from 'ketcher-react'
+import { Button, Dialog, Flex } from "@radix-ui/themes";
+import { StandaloneStructServiceProvider } from "ketcher-standalone";
+import { Editor } from "ketcher-react";
 
-import 'ketcher-react/dist/index.css'
+import "ketcher-react/dist/index.css";
 
-const structServiceProvider = new StandaloneStructServiceProvider()
+const structServiceProvider = new StandaloneStructServiceProvider();
 
 declare global {
-  var ketcher: any
+  var ketcher: any;
 }
 
 const ChemEditor: React.FC<any> = ({ setInput }) => {
   const onClick = async () => {
-    const smiles = await global.ketcher.getSmiles()
-    setInput(smiles)
-  }
+    const smiles = await global.ketcher.getSmiles();
+    // const mol = await global.ketcher.getMolfile('v3000')
+    setInput(smiles);
+  };
   return (
     <Dialog.Root>
       <Dialog.Trigger>
         <Button className="bg-teal-800">👉按结构图查询</Button>
       </Dialog.Trigger>
 
-      <Dialog.Content style={{ minWidth: '1200px' }}>
+      <Dialog.Content style={{ minWidth: "1200px" }}>
         <Editor
           errorHandler={() => {}}
-          staticResourcesUrl={''}
+          staticResourcesUrl={""}
           structServiceProvider={structServiceProvider}
           onInit={async (ketcher) => {
-            global.ketcher = ketcher
-            ketcher.setMolecule('')
+            global.ketcher = ketcher;
+            ketcher.setMolecule("");
           }}
         />
-        <Flex gap='3' mt='4' justify='end'>
+        <Flex gap="3" mt="4" justify="end">
           <Dialog.Close>
-            <Button variant='soft' color='gray'>
+            <Button variant="soft" color="gray">
               取消
             </Button>
           </Dialog.Close>
@@ -43,7 +44,7 @@ const ChemEditor: React.FC<any> = ({ setInput }) => {
         </Flex>
       </Dialog.Content>
     </Dialog.Root>
-  )
-}
+  );
+};
 
-export default ChemEditor
+export default ChemEditor;

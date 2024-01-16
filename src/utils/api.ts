@@ -199,3 +199,19 @@ export const getToken = async () => {
   }
   return token;
 };
+
+
+export const getSmilesFromMol = async (mol:string) => {
+  const url = `${API}/product/getchemicalsmiles`;
+  const data = { mol: mol };
+  try {
+    const res = await axios.post(url, data);
+    if (res.status === 200) {
+      return res.data.smiles;
+    } else {
+      return null;
+    }
+  } catch (err) {
+    return null;
+  }
+};

@@ -4,6 +4,7 @@ import { Flex, Heading, Button } from "@radix-ui/themes";
 import { ExitIcon } from "@radix-ui/react-icons";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import Profile from "./Profile";
 
 export default function Header() {
   const router = useRouter();
@@ -28,6 +29,7 @@ export default function Header() {
       </Heading>
 
       <Flex gap="1">
+        <Profile />
         {status === "authenticated" && (
           <Button
             variant="soft"

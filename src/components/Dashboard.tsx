@@ -8,13 +8,15 @@ import NodeDetail from "./NodeDetail";
 import RouteDetail from "./RouteDetail";
 import Conditions from "./Conditions";
 import { ToastProvider } from "./CustomToast";
+import { useCurrentLocale } from "next-i18n-router/client";
+import i18nConfig from "../../i18nConfig";
 
 export default function Dashboard() {
-  const [currentNode, setCurrentNode] = useState<Node | null>(null);
+  const locale = useCurrentLocale(i18nConfig);
 
+  const [currentNode, setCurrentNode] = useState<Node | null>(null);
   const [routes, setRoutes] = useState([]);
   const [conditions, setConditions] = useState([]);
-
   const [selectCondition, setSelectCondition] = useState<any>({});
 
   const handleSelect = (node: Node | null) => {
@@ -58,7 +60,15 @@ export default function Dashboard() {
           gap="2"
           style={{ backgroundColor: "var(--gray-a4)" }}
         >
-          <Text align="center">{currentNode ? "当前目标" : "未选中目标"} </Text>
+          <Text align="center" className="text-gray-300">
+            {currentNode
+              ? locale === "en"
+                ? "Current Target"
+                : "当前目标"
+              : locale === "en"
+                ? "No Target"
+                : "未选中目标"}{" "}
+          </Text>
           <Flex className="w-64 h-full" direction="column">
             {currentNode && currentNode.type === "chemNode" && (
               <NodeDetail setRoutes={setRoutes} currentNode={currentNode} />

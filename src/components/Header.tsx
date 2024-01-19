@@ -24,7 +24,7 @@ export default function Header() {
       p="3"
       top="0"
     >
-      <Heading size="5" align="center" color="gray" className="pl-5">
+      <Heading size="5" align="center" className="pl-5 text-gray-400">
         AIChemist
       </Heading>
 

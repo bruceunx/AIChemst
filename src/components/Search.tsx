@@ -5,6 +5,9 @@ import { findRoutes, findSmiles, getChemicalSVG } from "../utils/api";
 import { Node, useReactFlow } from "reactflow";
 import dynamic from "next/dynamic";
 
+import { useCurrentLocale } from "next-i18n-router/client";
+import i18nConfig from "../../i18nConfig";
+
 const ChemEditor = dynamic(() => import("./ChemEditor"), { ssr: false });
 
 export default function Search({
@@ -16,14 +19,17 @@ export default function Search({
   setConditions: Dispatch<SetStateAction<never[]>>;
   setCurrentNode: Dispatch<SetStateAction<Node | null>>;
 }) {
-  const { setEdges, setNodes } = useReactFlow();
+  const locale = useCurrentLocale(i18nConfig);
 
+  const { setEdges, setNodes } = useReactFlow();
   const [input, setInput] = useState<string>("");
-  const [text, setText] = useState<string>("开始查询");
+  const [text, setText] = useState<string>(
+    `${locale === "en" ? "Search" : "查询"}`,
+  );
   const [error, setError] = useState<boolean>(false);
   const handleClick = async () => {
     if (input.trim().length === 0) return;
-    setText("查询中...");
+    setText(`${locale === "en" ? "Calclulating..." : "计算中..."}`);
     setError(false);
 
     setRoutes([]);
@@ -61,7 +67,7 @@ export default function Search({
         }
       }
     }
-    setText("开始查询");
+    setText(`${locale === "en" ? "Search" : "查询"}`);
   };
 
   return (
@@ -72,7 +78,11 @@ export default function Search({
         </TextField.Slot>
         <TextField.Input
           className="outline-none"
-          placeholder="输入产品名称或者SMILES来查询"
+          placeholder={`${
+            locale === "en"
+              ? "Please input standard chemical name or SMILES"
+              : "输入标准化学名称或者SMILES"
+          }`}
           value={input}
           onChange={(e) => {
             setInput(e.target.value);
@@ -82,11 +92,11 @@ export default function Search({
       </TextField.Root>
       {error && (
         <Text size="2" color="red">
-          无法获取路线:( 可以再次尝试
+          {locale === "en" ? "Can not find the route :(" : "无法获取路线:("}
         </Text>
       )}
       <Button onClick={handleClick}>{text}</Button>
-      <ChemEditor setInput={setInput} />
+      <ChemEditor setInput={setInput} locale={locale} />
     </Flex>
   );
 }

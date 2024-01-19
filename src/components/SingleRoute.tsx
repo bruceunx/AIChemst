@@ -2,6 +2,7 @@ import { Table, Link, Button } from "@radix-ui/themes";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { getChemicalSVG } from "@/utils/api";
+import { TrashIcon } from "@heroicons/react/24/outline";
 
 const SingleRoute: React.FC<any> = ({ route, onDelete }) => {
   const [target, setTarget] = useState<string | null>(null);
@@ -29,15 +30,18 @@ const SingleRoute: React.FC<any> = ({ route, onDelete }) => {
               alt="target"
               width={70}
               height={70}
-              className="bg-white rounded-md p-2"
+              className="bg-white rounded-md p-2 hover:bg-yellow-300"
             />
           )}
         </Link>
       </Table.Cell>
       <Table.Cell>
-        <Button color="red" onClick={() => onDelete(route.id)}>
-          删除
-        </Button>
+        <TrashIcon
+          width="27"
+          color="teal"
+          onClick={() => onDelete(route.id)}
+          className="hover:cursor-pointer hover:text-red-500"
+        />
       </Table.Cell>
     </Table.Row>
   );

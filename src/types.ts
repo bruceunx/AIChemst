@@ -26,10 +26,12 @@ export type ReactNodeData = {
 export type NodeProps = {
   currentNode: Node
   setRoutes: Dispatch<SetStateAction<never[]>>
+  locale: string
 }
 
 export type RouteProps = {
   currentNode: Node
   setConditions: Dispatch<SetStateAction<never[]>>
   selectCondition: condition
+  locale: string
 }

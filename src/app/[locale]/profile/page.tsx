@@ -35,8 +35,10 @@ export default function Profile() {
       direction="column"
       gap="4"
     >
-      <Heading align="center">个人信息</Heading>
-      <Text>用户名: {session.user?.name}</Text>
+      <Heading align="center">
+        {locale === "en" ? "Profile" : "用户信息"}
+      </Heading>
+      <Text>{locale === "en" ? "username" : "用户名"}: {session.user?.name}</Text>
     </Flex>
   );
 }

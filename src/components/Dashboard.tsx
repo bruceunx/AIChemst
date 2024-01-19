@@ -43,13 +43,18 @@ export default function Dashboard() {
       <Flex className="min-h-[300px]" width="100%" direction="row">
         <Flex className="w-3/4" direction="column">
           {Boolean(routes.length) && (
-            <Reactions routes={routes} currentNode={currentNode} />
+            <Reactions
+              routes={routes}
+              currentNode={currentNode}
+              locale={locale!}
+            />
           )}
           {Boolean(conditions.length) && (
             <Conditions
               conditions={conditions}
               currentNode={currentNode}
               setSelectCondition={setSelectCondition}
+              locale={locale!}
             />
           )}
         </Flex>
@@ -71,13 +76,18 @@ export default function Dashboard() {
           </Text>
           <Flex className="w-64 h-full" direction="column">
             {currentNode && currentNode.type === "chemNode" && (
-              <NodeDetail setRoutes={setRoutes} currentNode={currentNode} />
+              <NodeDetail
+                setRoutes={setRoutes}
+                currentNode={currentNode}
+                locale={locale!}
+              />
             )}
             {currentNode && currentNode.type === "reactionNode" && (
               <RouteDetail
                 setConditions={setConditions}
                 currentNode={currentNode}
                 selectCondition={selectCondition}
+                locale={locale!}
               />
             )}
           </Flex>

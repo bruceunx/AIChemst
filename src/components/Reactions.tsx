@@ -4,7 +4,7 @@ import Reaction from "./Reaction";
 import { useReactFlow, getConnectedEdges, getIncomers, Node } from "reactflow";
 import { getChemicalSVG } from "../utils/api";
 
-const Reactions: React.FC<any> = ({ routes, currentNode }) => {
+const Reactions: React.FC<any> = ({ routes, currentNode, locale }) => {
   const [defaultValue, setDefaultValue] = useState<string>("0");
 
   const { getEdges, getNodes, setEdges, setNodes, fitView } = useReactFlow();
@@ -145,11 +145,15 @@ const Reactions: React.FC<any> = ({ routes, currentNode }) => {
           <Table.Root variant="surface" className="w-full">
             <Table.Header>
               <Table.Row>
-                <Table.ColumnHeaderCell>可靠性</Table.ColumnHeaderCell>
-                <Table.ColumnHeaderCell className="w-[800px]">
-                  反应路线
+                <Table.ColumnHeaderCell>
+                  {locale === "en" ? "Plausibility" : "评分"}
                 </Table.ColumnHeaderCell>
-                <Table.ColumnHeaderCell>选择</Table.ColumnHeaderCell>
+                <Table.ColumnHeaderCell className="w-[800px]">
+                  {locale === "en" ? "Route" : "反应路线"}
+                </Table.ColumnHeaderCell>
+                <Table.ColumnHeaderCell>
+                  {locale === "en" ? "Select" : "选择"}
+                </Table.ColumnHeaderCell>
               </Table.Row>
             </Table.Header>
             <Table.Body>

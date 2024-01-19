@@ -7,6 +7,7 @@ const Conditions: React.FC<any> = ({
   conditions,
   currentNode,
   setSelectCondition,
+  locale,
 }) => {
   const { setNodes } = useReactFlow();
 
@@ -48,12 +49,24 @@ const Conditions: React.FC<any> = ({
           <Table.Root variant="surface" className="w-full">
             <Table.Header>
               <Table.Row>
-                <Table.ColumnHeaderCell>评分</Table.ColumnHeaderCell>
-                <Table.ColumnHeaderCell>试剂</Table.ColumnHeaderCell>
-                <Table.ColumnHeaderCell>溶剂</Table.ColumnHeaderCell>
-                <Table.ColumnHeaderCell>催化剂</Table.ColumnHeaderCell>
-                <Table.ColumnHeaderCell>反应温度</Table.ColumnHeaderCell>
-                <Table.ColumnHeaderCell>选择</Table.ColumnHeaderCell>
+                <Table.ColumnHeaderCell>
+                  {locale === "en" ? "Plausibility" : "评分"}
+                </Table.ColumnHeaderCell>
+                <Table.ColumnHeaderCell>
+                  {locale === "en" ? "Reagent" : "试剂"}
+                </Table.ColumnHeaderCell>
+                <Table.ColumnHeaderCell>
+                  {locale === "en" ? "Solvent" : "溶剂"}
+                </Table.ColumnHeaderCell>
+                <Table.ColumnHeaderCell>
+                  {locale === "en" ? "Catalyst" : "催化剂"}
+                </Table.ColumnHeaderCell>
+                <Table.ColumnHeaderCell>
+                  {locale === "en" ? "Temperature" : "反应温度"}
+                </Table.ColumnHeaderCell>
+                <Table.ColumnHeaderCell>
+                  {locale === "en" ? "Select" : "选择"}
+                </Table.ColumnHeaderCell>
               </Table.Row>
             </Table.Header>
             <Table.Body>

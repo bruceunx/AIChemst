@@ -9,8 +9,11 @@ const RouteDetail: React.FC<RouteProps> = ({
   setConditions,
   currentNode,
   selectCondition,
+  locale,
 }) => {
-  const [text, setText] = useState<string>("反应条件筛选");
+  const [text, setText] = useState<string>(
+    `${locale === "en" ? "Condition Recommend" : "反应条件筛选"}`,
+  );
   const [error, setError] = useState<boolean>(false);
   const [reagent, setReagent] = useState<string | null>(null);
   const [solvent, setSolvent] = useState<string | null>(null);
@@ -19,7 +22,7 @@ const RouteDetail: React.FC<RouteProps> = ({
 
   const onClick = async () => {
     setError(false);
-    setText("正在筛选中...");
+    setText(`${locale === "en" ? "Recommend..." : "条件筛选..."}`);
     const result = await findConditions(
       currentNode.data.reactants,
       currentNode.data.product,
@@ -29,7 +32,7 @@ const RouteDetail: React.FC<RouteProps> = ({
     } else {
       setError(true);
     }
-    setText("反应条件筛选");
+    setText(`${locale === "en" ? "Condition Recommend" : "反应条件筛选"}`);
   };
 
   useEffect(() => {
@@ -122,11 +125,13 @@ const RouteDetail: React.FC<RouteProps> = ({
   return (
     <>
       <Heading align="center" className="py-2">
-        反应条件筛选
+        {locale === "en" ? "Condition Recommend" : "反应条件筛选"}
       </Heading>
       <Flex direction="column" gap="2" py="4" align="start" justify="start">
         <Flex direction="row" gap="2">
-          <Text className="w-20">反应试剂:</Text>
+          <Text className="w-20">
+            {locale === "en" ? "Reagent" : "反应试剂"}:
+          </Text>
           {reagent && (
             <Image
               src={reagent}
@@ -138,7 +143,9 @@ const RouteDetail: React.FC<RouteProps> = ({
           )}
         </Flex>
         <Flex direction="row" gap="2">
-          <Text className="w-20">反应溶剂:</Text>
+          <Text className="w-20">
+            {locale === "en" ? "Solvent" : "反应溶剂"}:
+          </Text>
           {solvent && (
             <Image
               src={solvent}
@@ -150,7 +157,9 @@ const RouteDetail: React.FC<RouteProps> = ({
           )}
         </Flex>
         <Flex direction="row" gap="2">
-          <Text className="w-20">催化剂:</Text>
+          <Text className="w-20">
+            {locale === "en" ? "Catalyst" : "催化剂"}:
+          </Text>
           {catalyst && (
             <Image
               src={catalyst}
@@ -162,7 +171,8 @@ const RouteDetail: React.FC<RouteProps> = ({
           )}
         </Flex>
         <Text>
-          反应温度: &nbsp; {temperature && `${temperature.toFixed(1)}℃ `}
+          {locale === "en" ? "Temperature" : "反应温度"}: &nbsp;{" "}
+          {temperature && `${temperature.toFixed(1)}℃ `}
         </Text>
       </Flex>
       <Button
@@ -175,7 +185,9 @@ const RouteDetail: React.FC<RouteProps> = ({
       </Button>
       {error && (
         <Text size="1" color="red">
-          无法获取条件:( 可以再次尝试获取
+          {locale === "en"
+            ? "Condition Recommend failed :("
+            : "反应条�筛选失败 :("}
         </Text>
       )}
     </>

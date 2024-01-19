@@ -5,12 +5,12 @@ import { NodeProps } from "@/types";
 import { useState } from "react";
 import { findRoutes } from "../utils/api";
 
-const NodeDetail: React.FC<NodeProps> = ({ currentNode, setRoutes }) => {
-  const [text, setText] = useState<string>("开始AI设计");
+const NodeDetail: React.FC<NodeProps> = ({ currentNode, setRoutes, locale }) => {
+  const [text, setText] = useState<string>(`${locale==="en"?"AI Design": "开始AI设计"}`);
   const [error, setError] = useState<boolean>(false);
 
   const onClick = async () => {
-    setText("正在设计中...");
+    setText(`${locale==="en"?"AI Design...": "正在设计中..."}`);
     setError(false);
 
     const routes = await findRoutes(currentNode.data.smiles);
@@ -44,7 +44,7 @@ const NodeDetail: React.FC<NodeProps> = ({ currentNode, setRoutes }) => {
       )}
       {error && (
         <Text size="1" color="red">
-          无法设计:( 可以再次尝试
+          {locale==="en"?"AI Design failed :(": "AI设计失败 :("}
         </Text>
       )}
     </>

@@ -61,6 +61,7 @@ export default function Chart({
   const onSave = useCallback(async () => {
     if (!session) return;
     if (rfInstance) {
+      if (nodes.length === 0) return showToast("Please input chemical!");
       // @ts-ignore-next-line
       const flow = rfInstance.toObject();
       const analysis = new Analyzer(flow);
@@ -68,9 +69,9 @@ export default function Chart({
       const target = analysis.getNodeLink().smiles; // get target smiles
       // @ts-ignore-next-line
       const res = await saveRoute(session.accessToken, target, content);
-      if (res === 0) showToast("反应路线保存成功");
+      if (res === 0) showToast("Save successfully!");
     }
-  }, [rfInstance, showToast, session]);
+  }, [rfInstance, showToast, session, nodes]);
 
   const onNodesDelete = useCallback(
     (deleted: any) => {
@@ -122,7 +123,7 @@ export default function Chart({
         <Panel position="top-right">
           {status === "authenticated" && (
             <Button variant="outline" onClick={onSave}>
-              保存
+              Save
             </Button>
           )}
         </Panel>

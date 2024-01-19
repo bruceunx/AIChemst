@@ -12,7 +12,7 @@ const RouteDetail: React.FC<RouteProps> = ({
   locale,
 }) => {
   const [text, setText] = useState<string>(
-    `${locale === "en" ? "Condition Recommend" : "反应条件筛选"}`,
+    `${locale === "en" ? "Condition Recommend" : "反应条件推荐"}`,
   );
   const [error, setError] = useState<boolean>(false);
   const [reagent, setReagent] = useState<string | null>(null);
@@ -22,7 +22,7 @@ const RouteDetail: React.FC<RouteProps> = ({
 
   const onClick = async () => {
     setError(false);
-    setText(`${locale === "en" ? "Recommend..." : "条件筛选..."}`);
+    setText(`${locale === "en" ? "Recommend..." : "条件推荐..."}`);
     const result = await findConditions(
       currentNode.data.reactants,
       currentNode.data.product,
@@ -32,7 +32,7 @@ const RouteDetail: React.FC<RouteProps> = ({
     } else {
       setError(true);
     }
-    setText(`${locale === "en" ? "Condition Recommend" : "反应条件筛选"}`);
+    setText(`${locale === "en" ? "Condition Recommend" : "反应条件推荐"}`);
   };
 
   useEffect(() => {
@@ -125,7 +125,7 @@ const RouteDetail: React.FC<RouteProps> = ({
   return (
     <>
       <Heading align="center" className="py-2">
-        {locale === "en" ? "Condition Recommend" : "反应条件筛选"}
+        {locale === "en" ? "Condition Recommend" : "反应条件推荐"}
       </Heading>
       <Flex direction="column" gap="2" py="4" align="start" justify="start">
         <Flex direction="row" gap="2">
@@ -172,7 +172,7 @@ const RouteDetail: React.FC<RouteProps> = ({
         </Flex>
         <Text>
           {locale === "en" ? "Temperature" : "反应温度"}: &nbsp;{" "}
-          {temperature && `${temperature.toFixed(1)}℃ `}
+          {temperature && `${temperature.toFixed(1)} °C`}
         </Text>
       </Flex>
       <Button
@@ -187,7 +187,7 @@ const RouteDetail: React.FC<RouteProps> = ({
         <Text size="1" color="red">
           {locale === "en"
             ? "Condition Recommend failed :("
-            : "反应条�筛选失败 :("}
+            : "反应条件筛选失败 :("}
         </Text>
       )}
     </>

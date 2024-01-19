@@ -1,10 +1,10 @@
-import { Table, Link, Button } from "@radix-ui/themes";
+import { Table, Link } from "@radix-ui/themes";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { getChemicalSVG } from "@/utils/api";
 import { TrashIcon } from "@heroicons/react/24/outline";
 
-const SingleRoute: React.FC<any> = ({ route, onDelete }) => {
+const SingleRoute: React.FC<any> = ({ route, onDelete, locale }) => {
   const [target, setTarget] = useState<string | null>(null);
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const SingleRoute: React.FC<any> = ({ route, onDelete }) => {
       <Table.RowHeaderCell>{route.id}</Table.RowHeaderCell>
       <Table.Cell>{route.time_stamp.substring(0, 10)}</Table.Cell>
       <Table.Cell>
-        <Link href={`/history/${route.id}`}>
+        <Link href={`${locale === "en" ? "/en" : ""}/history/${route.id}`}>
           {target && (
             <Image
               src={target}

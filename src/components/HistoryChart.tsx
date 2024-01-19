@@ -62,9 +62,11 @@ export default function HistoryChart({
     },
     [handleSelect, setDelKey],
   );
+
   const onSave = useCallback(async () => {
     if (!session) return;
     if (rfInstance) {
+      if (nodes.length === 0) return showToast("Please input chemical!");
       // @ts-ignore-next-line
       const flow = rfInstance.toObject();
       const analysis = new Analyzer(flow);
@@ -72,19 +74,9 @@ export default function HistoryChart({
       const target = analysis.getNodeLink().smiles; // get target smiles
       // @ts-ignore-next-line
       const res = await saveRoute(session.accessToken, target, content);
-      if (res === 0) showToast("反应路线保存成功!");
+      if (res === 0) showToast("Save successfully!");
     }
-  }, [rfInstance, showToast, session]);
-
-  const onExport = useCallback(() => {
-    if (rfInstance) {
-      // @ts-ignore-next-line
-      const flow = rfInstance.toObject();
-      const analysis = new Analyzer(flow);
-      console.log(JSON.stringify(analysis.getNodeLink()));
-      // upload to api and get pdf
-    }
-  }, [rfInstance]);
+  }, [rfInstance, showToast, session, nodes]);
 
   useEffect(() => {
     const onRestore = (content: string) => {
@@ -153,12 +145,9 @@ export default function HistoryChart({
         <Panel position="top-right">
           {status === "authenticated" && (
             <Button variant="outline" onClick={onSave}>
-              保存
+              Save
             </Button>
           )}
-          <Button variant="outline" color="indigo" onClick={onExport}>
-            导出
-          </Button>
         </Panel>
       </ReactFlow>
     </Flex>

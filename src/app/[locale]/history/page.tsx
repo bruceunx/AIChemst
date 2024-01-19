@@ -72,7 +72,7 @@ export default function History() {
         <Table.Body>
           {routes &&
             routes.map((route) => (
-              <SingleRoute route={route} onDelete={onDelete} key={route.id} />
+              <SingleRoute route={route} onDelete={onDelete} key={route.id} locale={locale} />
             ))}
         </Table.Body>
       </Table.Root>

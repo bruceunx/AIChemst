@@ -33,7 +33,7 @@ function HistoryPage({ params }: { params: { slug: string } }) {
   if (status === "loading") {
     return (
       <Flex className="m-auto">
-        <Text>正在加载中....</Text>
+        <Text>Loading....</Text>
       </Flex>
     );
   }

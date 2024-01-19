@@ -12,14 +12,18 @@ const Profile = () => {
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger>
-        <Button variant="soft">
+        <Button variant="soft" className="outline-none">
           {lang}
           <CaretDownIcon />
         </Button>
       </DropdownMenu.Trigger>
       <DropdownMenu.Content>
-        <DropdownMenu.Item onClick={onClick}>中文</DropdownMenu.Item>
-        <DropdownMenu.Item onClick={onClick}>English</DropdownMenu.Item>
+        <DropdownMenu.Item onClick={onClick} className="outline-none">
+          中文
+        </DropdownMenu.Item>
+        <DropdownMenu.Item onClick={onClick} className="outline-none">
+          English
+        </DropdownMenu.Item>
       </DropdownMenu.Content>
     </DropdownMenu.Root>
   );

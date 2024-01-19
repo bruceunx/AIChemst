@@ -2,24 +2,32 @@
 import { Flex, Text, Heading } from "@radix-ui/themes";
 import { redirect } from "next/navigation";
 import { useSession } from "next-auth/react";
+import { useCurrentLocale } from "next-i18n-router/client";
+import i18nConfig from "../../../../i18nConfig";
 
 export default function Profile() {
+  const locale = useCurrentLocale(i18nConfig);
+
   const { data: session, status } = useSession({
     required: true,
     onUnauthenticated() {
-      redirect("/login");
+      if (locale === "en") {
+        redirect("/en/login");
+      } else {
+        redirect("/login");
+      }
     },
   });
 
   if (status === "loading") {
     return (
       <Flex className="m-auto">
-        <Text>正在加载中....</Text>
+        <Text>Loading....</Text>
       </Flex>
     );
   }
 
-  console.log(session)
+  console.log(session);
 
   return (
     <Flex

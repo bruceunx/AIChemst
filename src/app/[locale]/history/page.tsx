@@ -7,6 +7,8 @@ import { useSession } from "next-auth/react";
 
 import SingleRoute from "@/components/SingleRoute";
 import { deleteHistoryRoute, getHistoryRoutes } from "@/utils/api";
+import { useCurrentLocale } from "next-i18n-router/client";
+import i18nConfig from "../../../../i18nConfig";
 
 type Route = {
   id: number;
@@ -15,11 +17,16 @@ type Route = {
 };
 
 export default function History() {
+  const locale = useCurrentLocale(i18nConfig);
   const [routes, setRoutes] = useState<Route[]>([]);
   const { status, data: session } = useSession({
     required: true,
     onUnauthenticated() {
-      redirect("/login");
+      if (locale === "en") {
+        redirect("/en/login");
+      } else {
+        redirect("/login");
+      }
     },
   });
 
@@ -55,10 +62,10 @@ export default function History() {
       <Table.Root variant="surface" className="w-full overflow-y-scroll">
         <Table.Header>
           <Table.Row>
-            <Table.ColumnHeaderCell>序号</Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell>时间</Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell>目标Smiles</Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell>删除</Table.ColumnHeaderCell>
+            <Table.ColumnHeaderCell>{locale==="en"? "Id": "序号"}</Table.ColumnHeaderCell>
+            <Table.ColumnHeaderCell>{locale==="en"? "Date": "时间"}</Table.ColumnHeaderCell>
+            <Table.ColumnHeaderCell>{locale==="en"? "Target": "目标物"}</Table.ColumnHeaderCell>
+            <Table.ColumnHeaderCell>{locale==="en"? "Delete": "删除"}</Table.ColumnHeaderCell>
           </Table.Row>
         </Table.Header>
 

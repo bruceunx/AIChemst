@@ -23,6 +23,9 @@ dependencies:
   framer-motion:
     specifier: ^10.16.16
     version: 10.16.16(react-dom@18.2.0)(react@18.2.0)
+  i18next:
+    specifier: ^23.7.16
+    version: 23.7.16
   ketcher-core:
     specifier: ^2.15.0
     version: 2.15.0
@@ -41,6 +44,9 @@ dependencies:
   next-auth:
     specifier: ^4.24.5
     version: 4.24.5(next@13.5.4)(react-dom@18.2.0)(react@18.2.0)
+  next-i18n-router:
+    specifier: ^5.2.0
+    version: 5.2.0
   react:
     specifier: ^18.2.0
     version: 18.2.0
@@ -50,6 +56,9 @@ dependencies:
   react-hook-form:
     specifier: ^7.49.2
     version: 7.49.2(react@18.2.0)
+  react-i18next:
+    specifier: ^14.0.0
+    version: 14.0.0(i18next@23.7.16)(react-dom@18.2.0)(react@18.2.0)
   reactflow:
     specifier: ^11.9.3
     version: 11.9.3(@types/react@18.2.28)(react-dom@18.2.0)(react@18.2.0)
@@ -346,6 +355,12 @@ packages:
 
   /@floating-ui/utils@0.1.6:
     resolution: {integrity: sha512-OfX7E2oUDYxtBvsuS4e/jSn4Q9Qb6DzgeYtsAdkPZ47znpoNsMgZw0+tVijiv3uGNR6dgNlty6r9rzIzHjtd/A==}
+    dev: false
+
+  /@formatjs/intl-localematcher@0.5.4:
+    resolution: {integrity: sha512-zTwEpWOzZ2CiKcB93BLngUX59hQkuZjT2+SAQEscSm52peDW/getsawMcWF1rGRpMCX6D7nSJA3CzJ8gn13N/g==}
+    dependencies:
+      tslib: 2.6.2
     dev: false
 
   /@heroicons/react@2.1.1(react@18.2.0):
@@ -3936,6 +3951,18 @@ packages:
       react-is: 16.13.1
     dev: false
 
+  /html-parse-stringify@3.0.1:
+    resolution: {integrity: sha512-KknJ50kTInJ7qIScF3jeaFRpMpE8/lfiTdzf/twXyPBLAGrLRTmkz3AdTnKeh40X8k9L2fdYwEp/42WGXIRGcg==}
+    dependencies:
+      void-elements: 3.1.0
+    dev: false
+
+  /i18next@23.7.16:
+    resolution: {integrity: sha512-SrqFkMn9W6Wb43ZJ9qrO6U2U4S80RsFMA7VYFSqp7oc7RllQOYDCdRfsse6A7Cq/V8MnpxKvJCYgM8++27n4Fw==}
+    dependencies:
+      '@babel/runtime': 7.23.2
+    dev: false
+
   /iconv-lite@0.6.3:
     resolution: {integrity: sha512-4fCk79wshMdzMp2rH06qWrJE4iolqLhCUH+OiuIgU++RB0+94NlDL81atO7GX55uUKueo0txHNtvEyI6D7WdMw==}
     engines: {node: '>=0.10.0'}
@@ -4678,6 +4705,11 @@ packages:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
     dev: true
 
+  /negotiator@0.6.3:
+    resolution: {integrity: sha512-+EUsqGPLsM+j/zdChZjsnX51g4XrHFOIXwfnCVPGlQk/k5giakcKsuxCObBRu6DSm9opw/O6slWbJdghQM4bBg==}
+    engines: {node: '>= 0.6'}
+    dev: false
+
   /next-auth@4.24.5(next@13.5.4)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-3RafV3XbfIKk6rF6GlLE4/KxjTcuMCifqrmD+98ejFq73SRoj2rmzoca8u764977lH/Q7jo6Xu6yM+Re1Mz/Og==}
     peerDependencies:
@@ -4701,6 +4733,13 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       uuid: 8.3.2
+    dev: false
+
+  /next-i18n-router@5.2.0:
+    resolution: {integrity: sha512-gi6vYG+d/CwO0+cI6mU95B+iU5S6ehLccOLIl4FH5YuL1G2JKq6FvjMbN8JxAJtlLvuAgwUjxgr2mdcAAgFXWw==}
+    dependencies:
+      '@formatjs/intl-localematcher': 0.5.4
+      negotiator: 0.6.3
     dev: false
 
   /next@13.5.4(react-dom@18.2.0)(react@18.2.0):
@@ -5174,6 +5213,26 @@ packages:
       react: ^16.8.0 || ^17 || ^18
     dependencies:
       react: 18.2.0
+    dev: false
+
+  /react-i18next@14.0.0(i18next@23.7.16)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-OCrS8rHNAmnr8ggGRDxjakzihrMW7HCbsplduTm3EuuQ6fyvWGT41ksZpqbduYoqJurBmEsEVZ1pILSUWkHZng==}
+    peerDependencies:
+      i18next: '>= 23.2.3'
+      react: '>= 16.8.0'
+      react-dom: '*'
+      react-native: '*'
+    peerDependenciesMeta:
+      react-dom:
+        optional: true
+      react-native:
+        optional: true
+    dependencies:
+      '@babel/runtime': 7.23.2
+      html-parse-stringify: 3.0.1
+      i18next: 23.7.16
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
     dev: false
 
   /react-intersection-observer@8.34.0(react@18.2.0):
@@ -6024,6 +6083,11 @@ packages:
   /uuid@9.0.1:
     resolution: {integrity: sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==}
     hasBin: true
+    dev: false
+
+  /void-elements@3.1.0:
+    resolution: {integrity: sha512-Dhxzh5HZuiHQhbvTW9AMetFfBHDMYpo23Uo9btPXgdYP+3T5S+p+jgNy7spra+veYhBP2dCSgxR/i2Y02h5/6w==}
+    engines: {node: '>=0.10.0'}
     dev: false
 
   /w3c-keyname@2.2.8:

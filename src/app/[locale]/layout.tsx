@@ -1,13 +1,11 @@
 import { Flex, Theme } from "@radix-ui/themes";
 import "@/globals.css";
-
 import "@radix-ui/themes/styles.css";
-
 import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Nav from "@/components/Nav";
 import Script from "next/script";
-import { NextAuthProvider } from "./provider";
+import { NextAuthProvider } from "../provider";
 
 export const metadata: Metadata = {
   title: "AIChemist",

@@ -3,6 +3,8 @@ import { signIn } from "next-auth/react";
 import { Flex, Text, Heading, Button, TextField } from "@radix-ui/themes";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
+import { useCurrentLocale } from "next-i18n-router/client";
+import i18nConfig from "../../../../i18nConfig";
 
 type FormInput = {
   username: string;
@@ -10,6 +12,7 @@ type FormInput = {
 };
 
 export default function Profile() {
+  const locale = useCurrentLocale(i18nConfig);
   const router = useRouter();
   const {
     handleSubmit,
@@ -20,14 +23,18 @@ export default function Profile() {
 
   //eslint-disable-next-line
   const onSubmit = async (values: any) => {
+    let url = "/profile";
+    if (locale == "en") url = "/en/profile";
+
     const res = await signIn("credentials", {
       redirect: false,
       username: values.username,
       password: values.password,
-      callbackUrl: "/profile",
+      callbackUrl: url,
     });
+    console.log(res)
     if (!res?.error) {
-      router.push("/profile");
+      router.push(url);
     } else {
       console.log("error");
     }
@@ -50,16 +57,18 @@ export default function Profile() {
           pb="3"
         >
           <Flex direction="row" gap="3">
-            <label htmlFor="username" className="w-14">
-              用户名:
+            <label htmlFor="username" className="w-20">
+              {locale === "en" ? "Username:" : "用户名:"}
             </label>
             <TextField.Input
               type="text"
               id="username"
               {...register("username", {
-                required: "必须要有",
+                required: `${locale === "en" ? "Required" : "必须要有"}`,
               })}
-              placeholder="输入用户名"
+              placeholder={`${
+                locale === "en" ? "please enter your username" : "请输入用户名"
+              }`}
             />
           </Flex>
           {errors.username && (
@@ -68,16 +77,16 @@ export default function Profile() {
             </Text>
           )}
           <Flex direction="row" gap="3">
-            <label htmlFor="password" className="w-14">
-              密码:
+            <label htmlFor="password" className="w-20">
+              {locale === "en" ? "Password:" : "密码:"}
             </label>
             <TextField.Input
               id="password"
               {...register("password", {
-                required: "必须要有的字段",
+                required: `${locale === "en" ? "Required" : "必须要有"}`,
                 minLength: {
                   value: 6,
-                  message: "长度最少为6",
+                  message: `${locale === "en" ? "Too short" : "长度不能小于6"}`,
                 },
               })}
               type="password"
@@ -89,10 +98,10 @@ export default function Profile() {
             </Text>
           )}
           <Text size="2" color="gray">
-            测试用户 tes：test123
+            {locale === "en" ? "TestUser ->" : "测试用户->"} test：test123
           </Text>
           <Button className="bg-teal-700 w-64" type="submit">
-            登陆
+            {locale === "en" ? "Login" : "登陆"}
           </Button>
         </Flex>
       </form>

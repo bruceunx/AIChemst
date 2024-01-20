@@ -11,9 +11,12 @@ import { ToastProvider } from "./CustomToast";
 import { useCurrentLocale } from "next-i18n-router/client";
 import i18nConfig from "../../i18nConfig";
 
-export default function Dashboard() {
-  const locale = useCurrentLocale(i18nConfig);
+type Props = {
+  content?: string;
+};
 
+export default function Dashboard(props: Props) {
+  const locale = useCurrentLocale(i18nConfig);
   const [currentNode, setCurrentNode] = useState<Node | null>(null);
   const [routes, setRoutes] = useState([]);
   const [conditions, setConditions] = useState([]);
@@ -28,18 +31,22 @@ export default function Dashboard() {
 
   return (
     <Flex direction="column" width="100%">
-      <Search
-        setRoutes={setRoutes}
-        setConditions={setConditions}
-        setCurrentNode={setCurrentNode}
-      />
-      <Separator orientation="horizontal" size="4" />
+      {!props.content && (
+        <>
+          <Search
+            setRoutes={setRoutes}
+            setConditions={setConditions}
+            setCurrentNode={setCurrentNode}
+          />
+          <Separator orientation="horizontal" size="4" className="bg-gray-500" />
+        </>
+      )}
       <Flex width="100%" className="h-80">
         <ToastProvider>
-          <Chart handleSelect={handleSelect} />
+          <Chart handleSelect={handleSelect} content={props.content} />
         </ToastProvider>
       </Flex>
-      <Separator orientation="horizontal" size="4" />
+      <Separator orientation="horizontal" size="4" className="bg-gray-500" />
       <Flex className="min-h-[300px]" width="100%" direction="row">
         <Flex className="w-3/4" direction="column">
           {Boolean(routes.length) && (

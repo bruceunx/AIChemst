@@ -8,13 +8,14 @@ import ReactFlow, {
   Panel,
   getIncomers,
   getConnectedEdges,
+  useReactFlow,
 } from "reactflow";
 import "reactflow/dist/style.css";
 import "@/style/flow.css";
 
 import ReactionNode from "./ReactionNode";
 import ChemNode from "./ChemNode";
-import { useCallback, MouseEvent, useState } from "react";
+import { useCallback, MouseEvent, useState, useEffect } from "react";
 import Analyzer from "@/utils/synthesis";
 import { useToast } from "./CustomToast";
 import { useSession } from "next-auth/react";
@@ -36,8 +37,10 @@ const defaultEdgeOptions = {
 
 export default function Chart({
   handleSelect,
+  content,
 }: {
   handleSelect: (node: Node | null) => void;
+  content?: string;
 }) {
   let { showToast } = useToast();
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
@@ -46,6 +49,8 @@ export default function Chart({
   const [delKey, setDelKey] = useState<string>("");
 
   const { status, data: session } = useSession();
+
+  const refFlow = useReactFlow();
 
   const onNodeClick = useCallback(
     (_: MouseEvent, node: Node) => {
@@ -58,6 +63,24 @@ export default function Chart({
     },
     [handleSelect, setDelKey],
   );
+
+  useEffect(() => {
+    const onRestore = (content: string) => {
+      const restoreFlow = async (content: string) => {
+        if (refFlow === null) return;
+        const flow = JSON.parse(content);
+        if (flow) {
+          const { x = 0, y = 0, zoom = 1 } = flow.viewport;
+          refFlow.setNodes(flow.nodes || []);
+          refFlow.setEdges(flow.edges || []);
+          refFlow.setViewport({ x, y, zoom });
+        }
+      };
+      restoreFlow(content);
+    };
+    if (refFlow !== null && content) onRestore(content);
+  }, [refFlow, content]);
+
   const onSave = useCallback(async () => {
     if (!session) return;
     if (rfInstance) {

@@ -8,7 +8,7 @@ import { ReactFlowProvider } from "reactflow";
 import { useSession } from "next-auth/react";
 
 import { getHistoryRoute } from "@/utils/api";
-import Dashboard from "@/components/Historyboard";
+import Dashboard from "@/components/Dashboard";
 
 function HistoryPage({ params }: { params: { slug: string } }) {
   const [content, setContent] = useState<string | null>(null);

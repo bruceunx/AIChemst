@@ -50,12 +50,14 @@ const Help = () => {
           alt="aichemist"
           width="600"
           height="500"
+          sizes="(max-width: 768px) 40vw, 10vw"
         />
         <Image
           src="/Screenshot2.png"
           alt="aichemist"
           width="600"
           height="500"
+          sizes="(max-width: 768px) 40vw, 10vw"
         />
       </Flex>
       <Text>
